@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+<h1>All Job Postings</h1>
+
+<p-table [value]="jobs" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>Applied Candidates</th>
+      <th>Closing Date</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-job>
+    <tr>
+      <td><a routerLink="/jobs/{{job.id}}">{{job.title}}</a></td>
+      <td>{{ job.numCandidates }}</td>
+      <td>{{ job.closingDate }}</td>
+    </tr>
+  </ng-template>
+</p-table>

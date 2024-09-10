@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'job/:jobId', component: JobComponent },
+  { path: 'jobs/:jobId', component: JobComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 
   { path: '**', component: PageNotFoundComponent }
