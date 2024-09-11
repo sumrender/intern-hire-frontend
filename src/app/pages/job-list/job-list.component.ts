@@ -3,13 +3,13 @@ import { RouterLink } from '@angular/router';
 import { TableModule } from 'primeng/table';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-job-list',
   standalone: true,
   imports: [TableModule, RouterLink],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  templateUrl: './job-list.component.html',
+  styleUrl: './job-list.component.scss'
 })
-export class DashboardComponent {
+export class JobListComponent {
   jobs = [
     {
       id: 1,
