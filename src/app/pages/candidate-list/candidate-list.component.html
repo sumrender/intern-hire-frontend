@@ -1,33 +1,86 @@
-<div>
-    <h2>Candidate List</h2>
-
-    <div class="p-inputgroup">
-        <input type="text" pInputText placeholder="Search by name..." [(ngModel)]="searchTerm" (input)="filterCandidates()" />
-        <button pButton type="button" icon="pi pi-search" (click)="filterCandidates()"></button>
+<div class="candidate-list">
+    <h2>All Candidates</h2>
+  
+    <div class="p-grid">
+      <div class="p-col-6">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Search..." [(ngModel)]="globalFilter" (input)="onGlobalFilter($event)">
+        </span>
+      </div>
+      <div class="p-col-6 text-right">
+        <button pButton type="button" label="Manage Columns" icon="pi pi-cog" (click)="manageColumns()"></button>
+      </div>
+      <div class="p-col-6 text-right">
+        <button pButton type="button" label="Filter" icon="pi pi-cog" (click)="showFilterDialog()"></button>
+      </div>
     </div>
+  
+    <p-table 
+      [value]="candidates" 
+      [paginator]="true" 
+      [rows]="rowsPerPage" 
+      [totalRecords]="totalRecords" 
+      [lazy]="true"
+      [globalFilterFields]="['full_name', 'email', 'mobile_number']" 
+      (onLazyLoad)="loadCandidates($event)"
+      [resizableColumns]="true" 
+      [scrollable]="true" 
+      selectionMode="single" 
+      [(selection)]="selectedCandidate"
+      [columns]="visibleColumns"
+      [sortField]="sortField" 
+      [sortOrder]="sortOrder">
 
-    <h3>Manage Columns</h3>
-    <div *ngFor="let col of columns">
-        <p-checkbox [(ngModel)]="col.visible" [label]="col.header" (onChange)="filterCandidates()"></p-checkbox>
-    </div>
-
-    <p-table [value]="filteredCandidates" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5, 10, 20]" [lazy]="true">
-        <ng-template pTemplate="header">
-            <tr>
-                <ng-container *ngFor="let col of columns">
-                    <th *ngIf="col.visible" pSortableColumn="{{col.field}}">
-                        {{ col.header }} <p-sortIcon [field]="col.field"></p-sortIcon>
-                    </th>
-                </ng-container>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-candidate>
-            <tr>
-                <ng-container *ngFor="let col of columns">
-                    <td *ngIf="col.visible">{{ candidate[col.field] }}</td>
-                </ng-container>
-            </tr>
-        </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+  
+      <ng-template pTemplate="body" let-rowData>
+        <tr>
+          <td *ngFor="let col of visibleColumns">
+            <ng-container *ngIf="col.field.includes('submission'); else standardField">
+              {{ col.field === 'submission[0].position' ? rowData.submission[0]?.position : '' }}
+              {{ col.field === 'submission[0].code_review_overall_score' ? rowData.submission[0]?.code_review_overall_score : '' }}
+              {{ col.field === 'submission[0].resume_review_overall_score' ? rowData.submission[0]?.resume_review_overall_score : '' }}
+            </ng-container>
+            <ng-template #standardField>
+              {{ rowData[col.field] }}
+            </ng-template>
+          </td>
+        </tr>
+      </ng-template>
     </p-table>
-</div>
+  
+    <p-dialog header="Manage Columns" [(visible)]="manageColumnsVisible" modal="true" [closable]="true">
+        <div class="p-grid">
+          <div class="p-col-12" *ngFor="let col of columns">
+            <p-checkbox [(ngModel)]="col.visible" binary="true"></p-checkbox>
+            <label>{{col.header}}</label>
+          </div>
+        </div>
+        <p-footer>
+          <button pButton label="Save" icon="pi pi-check" (click)="updateVisibleColumns(); manageColumnsVisible = false;"></button>
+        </p-footer>
+      </p-dialog>
+  
+    <p-dialog header="Filter by Code Review Score" [(visible)]="filterDialogVisible" modal="true">
+      <div class="p-field">
+        <label for="codeScoreOperator">Operator</label>
+        <p-dropdown [(ngModel)]="codeScoreFilter.operator" [options]="[{label: 'Greater than', value: 'gt'}, {label: 'Less than', value: 'lt'}]" placeholder="Select an operator"></p-dropdown>
+      </div>
+      <div class="p-field">
+        <label for="codeScoreValue">Code Review Score</label>
+        <input pInputText [(ngModel)]="codeScoreFilter.value" type="number" placeholder="Enter score value">
+      </div>
+      <p-footer>
+        <button pButton label="Apply" icon="pi pi-check" (click)="loadCandidates({ first: 0, rows: rowsPerPage }); filterDialogVisible = false;"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+  

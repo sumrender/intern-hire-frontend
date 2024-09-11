@@ -1,16 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Candidate } from '../models/candidate.model';
+import { Candidate } from "../models/candidate.model";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class CandidatesService {
-
-  private apiUrl = 'YOUR_API_URL';
-
-  private candidates: Candidate[] = [
+export const candidates: Candidate[] = [
     {
         candidate_id: '1',
         email: 'avy2121231@sicsr.ac.in',
@@ -132,11 +122,3 @@ export class CandidatesService {
     ]
 }
 ];
-
-  constructor(private http: HttpClient) {}
-
-  getCandidates(): Observable<Candidate[]> {
-      return of(this.candidates);
-      // return this.http.get<Candidate[]>(this.apiUrl);
-  }
-}
