@@ -86,7 +86,7 @@ export class CandidateListComponent implements OnInit {
 
   navigateToProfile(event: any) {
     console.log("checint the user profile", event);
-    const candidateId = event.data.id; // Assuming each candidate has a unique 'id' field
+    const candidateId = event.data.id;
     this.router.navigate(['/candidates', candidateId]);
   }
 
