@@ -25,4 +25,8 @@ export class CandidateService {
       count: 2,
       data: candidates});
   }
+
+  getCandidateById(id: string): Observable<any> {
+    return of(candidates[0]);
+  }
 }

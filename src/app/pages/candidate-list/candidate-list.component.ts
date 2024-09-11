@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';  
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-candidate-list',
@@ -48,7 +49,7 @@ export class CandidateListComponent implements OnInit {
   manageColumnsVisible = false;
   codeScoreFilter: any = { value: null, operator: 'gt' };
 
-  constructor(private candidateService: CandidateService) {}
+  constructor(private candidateService: CandidateService, private router: Router) {}
 
   ngOnInit() {
     this.loadCandidates({ first: 0, rows: this.rowsPerPage });
@@ -81,6 +82,12 @@ export class CandidateListComponent implements OnInit {
       });
     }
     return candidates;
+  }
+
+  navigateToProfile(event: any) {
+    console.log("checint the user profile", event);
+    const candidateId = event.data.id; // Assuming each candidate has a unique 'id' field
+    this.router.navigate(['/candidates', candidateId]);
   }
 
   showFilterDialog() {

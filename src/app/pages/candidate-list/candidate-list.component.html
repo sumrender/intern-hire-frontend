@@ -30,7 +30,8 @@
       [(selection)]="selectedCandidate"
       [columns]="visibleColumns"
       [sortField]="sortField" 
-      [sortOrder]="sortOrder">
+      [sortOrder]="sortOrder"
+      (onRowSelect)="navigateToProfile($event)">
 
       <ng-template pTemplate="header">
         <tr>
