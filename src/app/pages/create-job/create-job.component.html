@@ -1,0 +1,33 @@
+<div class="create-job-form">
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="jobTitle">Job Title</label>
+      <input id="jobTitle" pInputText formControlName="jobTitle" placeholder="Enter job title" />
+      <div *ngIf="jobForm.get('jobTitle')?.invalid && jobForm.get('jobTitle')?.touched">
+        <small class="p-error">Job title is required</small>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="jobDesc">Job Description</label>
+      <textarea id="jobDesc" pInputTextarea formControlName="jobDesc" rows="5"
+        placeholder="Enter job description"></textarea>
+      <div *ngIf="jobForm.get('jobDesc')?.invalid && jobForm.get('jobDesc')?.touched">
+        <small class="p-error">Job description is required</small>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="jobDomain">Job Domain</label>
+      <p-dropdown id="jobDomain" [options]="jobDomains" formControlName="jobDomain"
+        placeholder="Select a domain"></p-dropdown>
+      <div *ngIf="jobForm.get('jobDomain')?.invalid && jobForm.get('jobDomain')?.touched">
+        <small class="p-error">Job domain is required</small>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button pButton type="submit" label="Create Job" [disabled]="jobForm.invalid" class="submit-button"></button>
+    </div>
+  </form>
+</div>
