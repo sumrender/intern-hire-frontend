@@ -1,17 +1,14 @@
 <div class="job">
-  <h1>{{job.id}} - {{job.title}}</h1>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, autem ipsum. Molestiae aspernatur ea maiores rerum
-    sunt culpa voluptatem repellat neque dignissimos consequatur architecto nulla aperiam laudantium quis veritatis
-    facilis, quos vero minima laboriosam eligendi laborum doloribus. Necessitatibus dolorum placeat maxime, consequuntur
-    voluptate et doloremque molestiae explicabo ad ab nemo tempore voluptatum autem nisi nihil architecto cumque iste
-    nam harum non provident! At deserunt non maxime qui nostrum aliquam quod enim repudiandae sapiente autem quidem
-    similique omnis dolorem, quia distinctio et, perferendis blanditiis facere recusandae rem. Delectus dolores,
-    maiores, quam accusamus quisquam eaque necessitatibus nemo magnam reiciendis obcaecati in, aut quasi rem quod
-    veritatis perferendis voluptates animi beatae excepturi nesciunt. Nobis nesciunt ex doloremque deleniti odio error
-    dignissimos possimus placeat delectus consequuntur dolores iusto numquam tempora earum necessitatibus quidem, animi
-    aperiam accusantium rerum nam facilis repellendus? Quis fugiat voluptatum possimus omnis odit, id aperiam! Minus,
-    atque cupiditate. Molestiae deserunt beatae enim! Saepe necessitatibus suscipit ipsa nihil ab beatae, animi autem,
-    quia illo officia minus optio laudantium, porro cupiditate atque earum sunt. Corrupti omnis illum nemo mollitia.
-    Ipsam beatae natus quaerat placeat temporibus voluptates tempore est modi, nam nobis? Esse aliquam dolores, velit
-    error molestias asperiores aliquid ipsam non nobis dignissimos.</p>
+  <p-card header="{{job.id}} - {{job.title}}">
+    <p-fileUpload 
+      mode="basic" 
+      chooseLabel="Upload excel sheet" 
+      chooseIcon="pi pi-upload" 
+      name="file"
+      [auto]="true" 
+      url="http://localhost:3000/upload"
+      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
+      maxFileSize="5000000"
+      (onUpload)="onUpload($event)" />
+  </p-card>
 </div>

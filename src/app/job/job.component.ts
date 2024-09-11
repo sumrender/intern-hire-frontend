@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { CardModule } from 'primeng/card';
+import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-job',
   standalone: true,
-  imports: [],
+  imports: [FileUploadModule, CardModule],
   templateUrl: './job.component.html',
   styleUrl: './job.component.scss'
 })
@@ -29,6 +31,10 @@ export class JobComponent {
 
   ngOnInit() {
     this.job = this.jobs.find((job) => job.id === this.jobId);
+  }
+
+  onUpload(event: UploadEvent) {
+    console.log("file upload", event);
   }
 
 }
