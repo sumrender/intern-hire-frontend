@@ -1,1 +1,33 @@
-<p>candidate-list works!</p>
+<div>
+    <h2>Candidate List</h2>
+
+    <div class="p-inputgroup">
+        <input type="text" pInputText placeholder="Search by name..." [(ngModel)]="searchTerm" (input)="filterCandidates()" />
+        <button pButton type="button" icon="pi pi-search" (click)="filterCandidates()"></button>
+    </div>
+
+    <h3>Manage Columns</h3>
+    <div *ngFor="let col of columns">
+        <p-checkbox [(ngModel)]="col.visible" [label]="col.header" (onChange)="filterCandidates()"></p-checkbox>
+    </div>
+
+    <p-table [value]="filteredCandidates" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5, 10, 20]" [lazy]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <ng-container *ngFor="let col of columns">
+                    <th *ngIf="col.visible" pSortableColumn="{{col.field}}">
+                        {{ col.header }} <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </ng-container>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-candidate>
+            <tr>
+                <ng-container *ngFor="let col of columns">
+                    <td *ngIf="col.visible">{{ candidate[col.field] }}</td>
+                </ng-container>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
