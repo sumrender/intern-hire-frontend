@@ -3,6 +3,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
+import { CardModule } from 'primeng/card';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
 
@@ -15,6 +16,7 @@ import { NgIf } from '@angular/common';
     InputTextareaModule,
     DropdownModule,
     FormsModule,
+    CardModule,
     ReactiveFormsModule,
     NgIf,
   ],
@@ -29,7 +31,10 @@ export class CreateJobComponent {
     this.jobForm = this.fb.group({
       jobTitle: ['', Validators.required],
       jobDesc: ['', Validators.required],
-      jobDomain: ['', Validators.required]
+      jobDomain: ['', Validators.required],
+      codeCoverage: ['', Validators.pattern(/^[0-9]+$/)],
+      resumeScore: ['', Validators.pattern(/^[0-9]+$/)],
+      codeReviewScore: ['', Validators.pattern(/^[0-9]+$/)],
     });
   }
 

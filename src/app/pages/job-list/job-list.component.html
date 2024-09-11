@@ -1,5 +1,7 @@
 <h1>All Job Postings</h1>
 
+<button pButton type="button" label="Create job" icon="pi pi-plus" (click)="goToCreateJob()"></button>
+
 <p-table [value]="jobs" [tableStyle]="{ 'min-width': '50rem' }">
   <ng-template pTemplate="header">
     <tr>
