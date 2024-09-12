@@ -45,22 +45,45 @@
       <ng-template pTemplate="body" let-rowData>
         <tr>
           <td *ngFor="let col of visibleColumns">
-            <ng-container *ngIf="col.field.includes('submission'); else standardField">
-              {{ col.field === 'submission[0].position' ? rowData.submission[0]?.position : '' }}
-              {{ col.field === 'submission[0].code_review_overall_score' ? rowData.submission[0]?.code_review_overall_score : '' }}
-              {{ col.field === 'submission[0].resume_review_overall_score' ? rowData.submission[0]?.resume_review_overall_score : '' }}
+            <ng-container *ngIf="col.field === 'current_status'; else standardField">
+              <p-dropdown 
+                [options]="statusOptions" 
+                [(ngModel)]="rowData.current_status" 
+                (onChange)="onStatusChange(rowData)"
+                placeholder="Select Status"
+                appendTo="body">
+              </p-dropdown>
             </ng-container>
             <ng-template #standardField>
-              {{ rowData[col.field] }}
+              <ng-container *ngIf="col.field.includes('submission'); else otherFields">
+                {{ col.field === 'submission[0].position' ? rowData.submission[0]?.position : '' }}
+                {{ col.field === 'submission[0].code_review_overall_score' ? rowData.submission[0]?.code_review_overall_score : '' }}
+                {{ col.field === 'submission[0].resume_review_overall_score' ? rowData.submission[0]?.resume_review_overall_score : '' }}
+              </ng-container>
+              <ng-template #otherFields>
+                {{ rowData[col.field] }}
+              </ng-template>
             </ng-template>
           </td>
         </tr>
       </ng-template>
     </p-table>
+
+    <p-dialog header="Provide Reasons" [(visible)]="statusChange" modal="true" [closable]="true" (onHide)="onDialogClose()">
+      <form [formGroup]="reasonForm" (ngSubmit)="submitForm()">
+        <div class="field">
+          <div><label for="reason">Reasons*</label></div>
+          <input id="reason" pInputText formControlName="reason" placeholder="Enter reason" required/>
+        </div>
+        <div class="button-container">
+          <button pButton type="submit" label="Submit" class="submit-button" [disabled]="reasonForm.invalid"></button>
+        </div>
+      </form>
+    </p-dialog>
   
     <p-dialog header="Manage Columns" [(visible)]="manageColumnsVisible" modal="true" [closable]="true">
-        <div class="p-grid">
-          <div class="p-col-12" *ngFor="let col of columns">
+        <div class="manage-columns">
+          <div class="manage-columns-item" *ngFor="let col of columns">
             <p-checkbox [(ngModel)]="col.visible" binary="true"></p-checkbox>
             <label>{{col.header}}</label>
           </div>

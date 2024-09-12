@@ -166,6 +166,21 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
+.manage-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  &-item {
+    flex: 1 1 calc(25% - 16px);
+    box-sizing: border-box;
+  }
+
+  p-checkbox {
+    margin: 0 10px;
+  }
+}
+
 // Footer styles for Save and Apply buttons
 .p-footer {
   display: flex;
