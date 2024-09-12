@@ -25,21 +25,18 @@ export class CandidateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Get the candidate ID from the route parameters
     this.candidateId = this.route.snapshot.paramMap.get('id')!;
     
-    // Fetch candidate data
     this.fetchCandidateData(this.candidateId);
   }
 
   fetchCandidateData(id: string) {
     this.candidateService.getCandidateById(id).subscribe((data: any) => {
       this.candidateData = data;
-      this.setupChart(); // Setup chart data after fetching candidate details
+      this.setupChart();
     });
   }
 
-  // Setup data for score visualization in the chart
   setupChart() {
     this.chartData = {
       labels: ['Code Review', 'Resume Review', 'Code Coverage'],

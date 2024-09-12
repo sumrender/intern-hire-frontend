@@ -6,6 +6,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { JobPostService } from '../../services/job-post.service';
 
 @Component({
   selector: 'app-create-job',
@@ -27,7 +28,7 @@ export class CreateJobComponent {
   jobForm: FormGroup;
   jobDomains: string[] = ['Frontend', 'Backend'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private jobPostService : JobPostService) {
     this.jobForm = this.fb.group({
       jobTitle: ['', Validators.required],
       jobDesc: ['', Validators.required],
@@ -41,7 +42,14 @@ export class CreateJobComponent {
   onSubmit() {
     if (this.jobForm.valid) {
       const jobData = this.jobForm.value;
-      console.log('Job Data:', jobData);
+      this.jobPostService.createJobPost(jobData).subscribe(
+        (response) => {
+          console.log('Job post created successfully:', response);
+        },
+        (error) => {
+          console.error('Error creating job post:', error);
+        }
+      );
     } else {
       console.log('Form is invalid');
     }
