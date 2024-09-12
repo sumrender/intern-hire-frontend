@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
-import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
+import { FileUploadModule, FileBeforeUploadEvent, UploadEvent } from 'primeng/fileupload';
+import { environment } from '../../../environment';
+
 
 @Component({
   selector: 'app-job',
@@ -11,6 +13,8 @@ import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
 })
 export class JobComponent {
   @Input() jobId: string = '';
+
+  uploadUrl = environment.uploadExcelUrl;
 
   jobs = [
     {
@@ -28,9 +32,13 @@ export class JobComponent {
   ]
 
   job: any;
-
   ngOnInit() {
     this.job = this.jobs.find((job) => job.id === this.jobId);
+  }
+
+  onBeforeSend(event: FileBeforeUploadEvent) {
+    const id = Date.now();
+    event.formData.append('jobId', id.toString());
   }
 
   onUpload(event: UploadEvent) {

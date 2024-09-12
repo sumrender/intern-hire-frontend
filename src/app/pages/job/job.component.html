@@ -1,4 +1,4 @@
-<!-- <div class="job">
+<div class="job">
   <p-card header="{{job.id}} - {{job.title}}">
     <p-fileUpload 
       mode="basic" 
@@ -6,9 +6,10 @@
       chooseIcon="pi pi-upload" 
       name="file"
       [auto]="true" 
-      url="http://localhost:3000/upload"
+      [url]="uploadUrl"
       accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
       maxFileSize="5000000"
+      (onBeforeUpload)="onBeforeSend($event)"
       (onUpload)="onUpload($event)" />
   </p-card>
-</div> -->
+</div>
