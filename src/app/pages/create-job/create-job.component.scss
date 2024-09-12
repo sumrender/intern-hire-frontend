@@ -31,3 +31,21 @@
     text-align: right;
   }
   
+  .loading-spinner, .success-message {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .success-message i {
+    margin-bottom: 10px;
+  }
+  
+  button.submit-button {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .field {
+    margin-bottom: 15px;
+  }
+  

@@ -1,7 +1,20 @@
 <div class="create-job-form-container">
   <p-card>
     <h2>Create a Job</h2>
-    <div class="create-job-form">
+    
+    <div *ngIf="isLoading" class="loading-spinner">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2em;"></i>
+    </div>
+    
+    <!-- Show success icon when job post is created -->
+    <div *ngIf="isSuccess" class="success-message">
+      <i class="pi pi-check-circle" style="font-size: 2em; color: green;"></i>
+      <p>Job post created successfully!</p>
+      <p> Redirecting to job posts page ...</p>
+    </div>
+
+    <!-- Job form will be hidden when loading or success -->
+    <div class="create-job-form" *ngIf="!isLoading && !isSuccess">
       <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
         <div class="field">
           <div><label for="jobTitle">Job Title*</label></div>
@@ -32,7 +45,7 @@
         <h2>Set Standards</h2>
 
         <div class="field">
-          <div><label for="codeCoverage">Code coverage percentage</label></div>
+          <div><label for="codeCoverage">Code coverage percentage (out of 100)</label></div>
           <input id="codeCoverage" pInputText formControlName="codeCoverage" placeholder="Enter code coverage percentage"/>
           <div *ngIf="jobForm.get('codeCoverage')?.invalid && jobForm.get('codeCoverage')?.touched">
             <small class="p-error">Enter only numbers</small>
@@ -40,7 +53,7 @@
         </div>
 
         <div class="field">
-          <div><label for="resumeScore">Resume score threshold</label></div>
+          <div><label for="resumeScore">Resume score threshold (out of 10)</label></div>
           <input id="resumeScore" pInputText formControlName="resumeScore" placeholder="Enter resume score threshold"/>
           <div *ngIf="jobForm.get('resumeScore')?.invalid && jobForm.get('resumeScore')?.touched">
             <small class="p-error">Enter only numbers</small>
@@ -48,7 +61,7 @@
         </div>
 
         <div class="field">
-          <div><label for="codeReviewScore">Code review score threshold</label></div>
+          <div><label for="codeReviewScore">Code review score threshold (out of 10)</label></div>
           <input id="codeReviewScore" pInputText formControlName="codeReviewScore" placeholder="Enter code review score threshold"/>
           <div *ngIf="jobForm.get('codeReviewScore')?.invalid && jobForm.get('codeReviewScore')?.touched">
             <small class="p-error">Enter only numbers</small>
@@ -56,7 +69,7 @@
         </div>
         
         <div class="button-container">
-          <button pButton type="submit" label="Create Job" [disabled]="jobForm.invalid" class="submit-button"></button>
+          <button pButton type="submit" label="Create Job" [disabled]="jobForm.invalid || isLoading" class="submit-button"></button>
         </div>
       </form>
     </div>
