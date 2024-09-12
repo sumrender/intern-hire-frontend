@@ -74,8 +74,8 @@ export class CandidateListComponent implements OnInit {
     const { first, rows, sortField, sortOrder } = event;
     this.candidateService.getCandidates(first, rows, sortField, sortOrder, this.globalFilter)
       .subscribe(response => {
-        this.candidates = this.applyFilters(response.data); 
-        this.totalRecords = response.count; 
+        this.candidates = response?.data; 
+        this.totalRecords = response?.count; 
       });
   }
 
