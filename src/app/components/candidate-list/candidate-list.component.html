@@ -11,6 +11,7 @@
       </div>
       <div class="p-col-6 text-right">
         <button pButton type="button" label="Filter" icon="pi pi-cog" (click)="showFilterDialog()"></button>
+        <button pButton type="button" label="Actions" icon="pi pi-cog" *ngIf="selectedCandidates.length > 0" (click)="showBulkStatusUpdateDialog()"></button>
       </div>
     </div>
   
@@ -24,8 +25,7 @@
       (onLazyLoad)="loadCandidates($event)"
       [resizableColumns]="true" 
       [scrollable]="true" 
-      selectionMode="single" 
-      [(selection)]="selectedCandidate" 
+      [(selection)]="selectedCandidates" 
       [columns]="visibleColumns"
       [sortField]="sortField" 
       [sortOrder]="sortOrder"
@@ -33,6 +33,9 @@
 
       <ng-template pTemplate="header">
         <tr>
+          <th>
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
           <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field">
             {{col.header}}
             <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -42,6 +45,9 @@
   
       <ng-template pTemplate="body" let-rowData>
         <tr>
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
           <td *ngFor="let col of visibleColumns">
             <ng-container *ngIf="col.field === 'current_status'; else standardField">
               <p-dropdown 
@@ -103,6 +109,18 @@
       <p-footer>
         <button pButton label="Apply" icon="pi pi-check" (click)="loadCandidates({ first: 0, rows: rowsPerPage }); filterDialogVisible = false;"></button>
       </p-footer>
+    </p-dialog>
+
+    <p-dialog header="Change status update" [(visible)]="bulkStatusUpdateDialogVisible" modal="true">
+      <form [formGroup]="statusForm" (ngSubmit)="submitBulkStatus()">
+        <p-dropdown 
+          [options]="statusOptions" 
+          placeholder="Select Status"
+          formControlName="status"
+          appendTo="body">
+        </p-dropdown>
+        <button pButton label="Update" icon="pi pi-check" type="submit"></button>
+      </form>
     </p-dialog>
   </div>
   

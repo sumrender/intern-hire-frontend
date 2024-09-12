@@ -24,6 +24,7 @@ export class CandidateListComponent implements OnInit {
   totalRecords: number = 0;
   globalFilter: string = '';
   rowsPerPage: number = 10;
+  selectedCandidates: any[] = [];
   rowsOptions = [
     { label: '10', value: 10 },
     { label: '20', value: 20 },
@@ -48,15 +49,21 @@ export class CandidateListComponent implements OnInit {
 
   visibleColumns: any[] = this.columns.filter(col => col.visible);
   filterDialogVisible = false;
+  bulkStatusUpdateDialogVisible = false;
   manageColumnsVisible = false;
   codeScoreFilter: any = { value: null, operator: 'gt' };
   reasonForm: FormGroup;
+  statusForm: FormGroup;
   rowData: any;
 
   constructor(private candidateService: CandidateService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
     this.reasonForm = this.fb.group({
       reason: ['', Validators.required]
     });
+
+    this.statusForm = this.fb.group({
+      status: ['', Validators.required]
+    })
   }
 
   ngOnInit() {
@@ -135,6 +142,14 @@ export class CandidateListComponent implements OnInit {
 
   onDialogClose() {
     window.location.reload();
+  }
+
+  showBulkStatusUpdateDialog() {
+    this.bulkStatusUpdateDialogVisible = true;
+  }
+
+  submitBulkStatus() {
+    console.log(this.selectedCandidates, this.statusForm.get('status')?.value);
   }
 }
 
