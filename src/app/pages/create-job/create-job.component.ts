@@ -43,9 +43,9 @@ export class CreateJobComponent {
       jobTitle: ['', Validators.required],
       jobDesc: ['', Validators.required],
       jobDomain: ['', Validators.required],
-      codeCoverage: ['', Validators.pattern(/^[0-9]+$/)],
-      resumeScore: ['', Validators.pattern(/^[0-9]+$/)],
-      codeReviewScore: ['', Validators.pattern(/^[0-9]+$/)],
+      codeCoverage: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(100)]],
+      resumeScore: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(10)]],
+      codeReviewScore: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(10)]],
       is_active: [true],
     });
   }

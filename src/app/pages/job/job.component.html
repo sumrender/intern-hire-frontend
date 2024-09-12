@@ -1,5 +1,7 @@
-<div class="job">
-  <p-card header="{{job.id}} - {{job.title}}">
+<p-card header="{{job.jobId}} - {{job.jobTitle}}">
+  <div class="button-container">
+    <button pButton type="button" label="View job" icon="pi pi-cog" class="button-container-items" (click)="openJobModal()"></button>
+    <button pButton type="button" label="Edit job" icon="pi pi-cog" class="button-container-items"></button>
     <p-fileUpload 
       mode="basic" 
       chooseLabel="Upload excel sheet" 
@@ -10,6 +12,20 @@
       accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" 
       maxFileSize="5000000"
       (onBeforeUpload)="onBeforeSend($event)"
-      (onUpload)="onUpload($event)" />
-  </p-card>
-</div>
+      (onUpload)="onUpload($event)"
+      class="button-container-items"
+      />
+  </div>
+</p-card>
+
+<p-dialog header="Job details" [(visible)]="showJobDetails" modal="true" [closable]="true">
+ <h3>Job description</h3>
+ <p>{{job.jobDesc}}</p>
+ <h3> Standards </h3>
+ <!-- <ul>
+  <li *ngFor="let standard for job.standards">{{standard.key}}: {{standard.value}}</li>
+ </ul> -->
+
+</p-dialog>
+
+<app-candidate-list></app-candidate-list>
