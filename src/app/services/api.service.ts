@@ -22,4 +22,9 @@ export class ApiService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<T>(url, body, { headers });
   }
+
+  put<T>(endpoint: string, body: any): Observable<T> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<T>(`${this.baseUrl}${endpoint}`, body, { headers });
+  }
 }

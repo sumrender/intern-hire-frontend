@@ -16,6 +16,13 @@
     <!-- Job form will be hidden when loading or success -->
     <div class="create-job-form" *ngIf="!isLoading && !isSuccess">
       <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+
+        <div class="field">
+          <div><label for="is_active">Is Active?</label></div>
+          <input id="is_active" type="checkbox" formControlName="is_active" />
+          <small>Check this if the job is currently active and hiring.</small>
+        </div>
+        
         <div class="field">
           <div><label for="jobTitle">Job Title*</label></div>
           <input id="jobTitle" pInputText formControlName="jobTitle" placeholder="Enter job title"/>

@@ -23,7 +23,7 @@ import { MessageService } from 'primeng/api';
     ReactiveFormsModule,
     NgIf,
   ],
-  providers: [MessageService], // Provide MessageService for notifications
+  providers: [MessageService],
   templateUrl: './create-job.component.html',
   styleUrl: './create-job.component.scss',
 })
@@ -46,6 +46,7 @@ export class CreateJobComponent {
       codeCoverage: ['', Validators.pattern(/^[0-9]+$/)],
       resumeScore: ['', Validators.pattern(/^[0-9]+$/)],
       codeReviewScore: ['', Validators.pattern(/^[0-9]+$/)],
+      is_active: [true],
     });
   }
 

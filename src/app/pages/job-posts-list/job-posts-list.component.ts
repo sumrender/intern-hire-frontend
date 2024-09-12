@@ -17,12 +17,29 @@ export class JobPostListComponent implements OnInit {
   constructor(private jobPostService: JobPostService) { }
 
   ngOnInit(): void {
+    this.fetchJobPosts();
+  }
+
+  fetchJobPosts() {
     this.jobPostService.getAllJobPosts().subscribe(
       (data) => {
         this.jobPosts = data;
       },
       (error) => {
         console.error('Error fetching job posts:', error);
+      }
+    );
+  }
+
+  toggleJobStatus(job: JobPost) {
+    console.log("chekcint hte job", job);
+    const updatedStatus = !job.is_active;
+    this.jobPostService.updateJobStatus(job.jobId, updatedStatus).subscribe(
+      (response) => {
+        job.is_active = updatedStatus;
+      },
+      (error) => {
+        console.error('Error updating job status:', error);
       }
     );
   }

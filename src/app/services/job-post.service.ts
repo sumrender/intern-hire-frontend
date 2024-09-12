@@ -18,4 +18,9 @@ export class JobPostService {
   getAllJobPosts(): Observable<JobPost[]> {
     return this.apiService.get<JobPost[]>('/job-posts');
   }
+
+  updateJobStatus(jobId: string, is_active: boolean): Observable<any> {
+    console.log("chekcingte hte ", jobId);
+    return this.apiService.put(`/job-post/${jobId}/status`, { is_active });
+  }
 }
