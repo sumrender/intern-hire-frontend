@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateService } from '../../services/candidate.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'; 
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';  
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-candidate-list',
@@ -31,6 +32,7 @@ export class CandidateListComponent implements OnInit {
   sortField: string = 'full_name';
   sortOrder: number = 1;
   selectedCandidate: any;
+  statusChange: boolean = false;
   
   columns: any[] = [
     { field: 'full_name', header: 'Full Name', visible: true },
@@ -48,8 +50,14 @@ export class CandidateListComponent implements OnInit {
   filterDialogVisible = false;
   manageColumnsVisible = false;
   codeScoreFilter: any = { value: null, operator: 'gt' };
+  reasonForm: FormGroup;
+  rowData: any;
 
-  constructor(private candidateService: CandidateService, private router: Router) {}
+  constructor(private candidateService: CandidateService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
+    this.reasonForm = this.fb.group({
+      reason: ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
     this.loadCandidates({ first: 0, rows: this.rowsPerPage });
@@ -101,4 +109,32 @@ export class CandidateListComponent implements OnInit {
   updateVisibleColumns() {
     this.visibleColumns = this.columns.filter(col => col.visible);
   }
+
+  statusOptions = [
+    { label: 'AI_REVIEWED', value: 'AI_REVIEWED' },
+    { label: 'INTERVIEW 1 SELECTED', value: 'INTERVIEW 1 SELECTED' },
+    { label: 'SELECTED', value: 'SELECTED' },
+    { label: 'REJECTED', value: 'REJECTED' }
+  ];
+  
+  onStatusChange(rowData: any) {
+    this.rowData = rowData;
+    this.statusChange = true;
+  }
+
+  submitForm() {
+    if (this.reasonForm.valid) {
+      const reason = this.reasonForm.get('reason')?.value;
+      const payload = {
+        rowData: this.rowData,
+        reason: reason
+      };
+      console.log(payload);
+    }
+  }
+
+  onDialogClose() {
+    window.location.reload();
+  }
 }
+
