@@ -13,6 +13,7 @@ export class ApiService {
 
   // Generic GET request with optional query parameters
   get<T>(endpoint: string, params?: any): Observable<T> {
+    console.log("checking base url", this.baseUrl);
     const url = `${this.baseUrl}${endpoint}`;
     let httpParams = new HttpParams();
 
