@@ -30,7 +30,7 @@ export class CandidateService {
       params.filter = globalFilter;
     }
   
-    return this.apiService.get<any>('candidates', params);
+    return this.apiService.get<any>('/candidates', params);
   }
 
   getCandidateById(id: string): Observable<any> {

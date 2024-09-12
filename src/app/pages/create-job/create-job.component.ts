@@ -43,6 +43,7 @@ export class CreateJobComponent {
       jobTitle: ['', Validators.required],
       jobDesc: ['', Validators.required],
       jobDomain: ['', Validators.required],
+      baseUrl: ['', Validators.required],
       codeCoverage: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(100)]],
       resumeScore: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(10)]],
       codeReviewScore: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(10)]],
