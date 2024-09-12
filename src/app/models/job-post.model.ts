@@ -1,11 +1,11 @@
 export interface JobPost {
-    jobId: string,
-    jobTitle: string;
-    jobDomain: string;
-    jobDesc: string;
-    codeCoverage: number;
-    codeReviewScore: number;
-    resumeScore: number;
+    job_id: string,
+    job_title: string;
+    job_domain: string;
+    job_desc: string;
+    code_coverage: number;
+    code_review_score: number;
+    resume_score: number;
     is_active: boolean;
   }
   

@@ -14,13 +14,20 @@ export class JobPostService {
     return this.apiService.post<any>('/job-post', jobPost);
   }
 
-  // Method to fetch all job posts
-  getAllJobPosts(): Observable<JobPost[]> {
-    return this.apiService.get<JobPost[]>('/job-posts');
-  }
-
   updateJobStatus(jobId: string, is_active: boolean): Observable<any> {
     console.log("chekcingte hte ", jobId);
     return this.apiService.put(`/job-post/${jobId}/status`, { is_active });
+  }
+
+  updateJob(jobId: string, updatedFields: { [key: string]: any }): Observable<any> {
+    return this.apiService.put(`/job-post/${jobId}/status`, updatedFields);
+  }
+
+  getAllJobPosts(offset: number = 0, limit: number = 10): Observable<{ count: number, data: JobPost[] }> {
+    return this.apiService.get<{ count: number, data: JobPost[] }>('/job-posts', { offset: offset.toString(), limit: limit.toString() });
+  }
+  
+  getJobById(job_id: string): Observable<{count: number, data: JobPost[]}> {
+    return this.apiService.get<{count: number, data: JobPost[]}>('/job-posts', { job_id });
   }
 }

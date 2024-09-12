@@ -24,27 +24,27 @@
         </div>
         
         <div class="field">
-          <div><label for="jobTitle">Job Title*</label></div>
-          <input id="jobTitle" pInputText formControlName="jobTitle" placeholder="Enter job title"/>
-          <div *ngIf="jobForm.get('jobTitle')?.invalid && jobForm.get('jobTitle')?.touched">
+          <div><label for="job_title">Job Title*</label></div>
+          <input id="job_title" pInputText formControlName="job_title" placeholder="Enter job title"/>
+          <div *ngIf="jobForm.get('job_title')?.invalid && jobForm.get('job_title')?.touched">
             <small class="p-error">Job title is required</small>
           </div>
         </div>
 
         <div class="field">
-          <div><label for="jobDesc">Job Description*</label></div>
-          <textarea id="jobDesc" pInputTextarea formControlName="jobDesc" rows="5"
+          <div><label for="job_desc">Job Description*</label></div>
+          <textarea id="job_desc" pInputTextarea formControlName="job_desc" rows="5"
             placeholder="Enter job description"></textarea>
-          <div *ngIf="jobForm.get('jobDesc')?.invalid && jobForm.get('jobDesc')?.touched">
+          <div *ngIf="jobForm.get('job_desc')?.invalid && jobForm.get('job_desc')?.touched">
             <small class="p-error">Job description is required</small>
           </div>
         </div>
 
         <div class="field">
-          <div><label for="jobDomain">Job Domain*</label></div>
-          <p-dropdown id="jobDomain" [options]="jobDomains" formControlName="jobDomain"
+          <div><label for="job_domain">Job Domain*</label></div>
+          <p-dropdown id="job_domain" [options]="job_domains" formControlName="job_domain"
             placeholder="Select a domain" [style]="{'width':'100%', 'margin': '10px 0'}"></p-dropdown>
-          <div *ngIf="jobForm.get('jobDomain')?.invalid && jobForm.get('jobDomain')?.touched">
+          <div *ngIf="jobForm.get('job_domain')?.invalid && jobForm.get('job_domain')?.touched">
             <small class="p-error">Job domain is required</small>
           </div>
         </div>
@@ -52,25 +52,25 @@
         <h2>Set Standards</h2>
 
         <div class="field">
-          <div><label for="codeCoverage">Code coverage percentage (out of 100)</label></div>
-          <input id="codeCoverage" pInputText formControlName="codeCoverage" placeholder="Enter code coverage percentage"/>
-          <div *ngIf="jobForm.get('codeCoverage')?.invalid && jobForm.get('codeCoverage')?.touched">
+          <div><label for="code_coverage">Code coverage percentage (out of 100)</label></div>
+          <input id="code_coverage" pInputText formControlName="code_coverage" placeholder="Enter code coverage percentage"/>
+          <div *ngIf="jobForm.get('code_coverage')?.invalid && jobForm.get('code_coverage')?.touched">
             <small class="p-error">Enter only numbers</small>
           </div>
         </div>
 
         <div class="field">
-          <div><label for="resumeScore">Resume score threshold (out of 10)</label></div>
-          <input id="resumeScore" pInputText formControlName="resumeScore" placeholder="Enter resume score threshold"/>
-          <div *ngIf="jobForm.get('resumeScore')?.invalid && jobForm.get('resumeScore')?.touched">
+          <div><label for="resume_score">Resume score threshold (out of 10)</label></div>
+          <input id="resume_score" pInputText formControlName="resume_score" placeholder="Enter resume score threshold"/>
+          <div *ngIf="jobForm.get('resume_score')?.invalid && jobForm.get('resume_score')?.touched">
             <small class="p-error">Enter only numbers</small>
           </div>
         </div>
 
         <div class="field">
-          <div><label for="codeReviewScore">Code review score threshold (out of 10)</label></div>
-          <input id="codeReviewScore" pInputText formControlName="codeReviewScore" placeholder="Enter code review score threshold"/>
-          <div *ngIf="jobForm.get('codeReviewScore')?.invalid && jobForm.get('codeReviewScore')?.touched">
+          <div><label for="code_review_score">Code review score threshold (out of 10)</label></div>
+          <input id="code_review_score" pInputText formControlName="code_review_score" placeholder="Enter code review score threshold"/>
+          <div *ngIf="jobForm.get('code_review_score')?.invalid && jobForm.get('code_review_score')?.touched">
             <small class="p-error">Enter only numbers</small>
           </div>
         </div>
