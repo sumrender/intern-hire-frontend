@@ -118,11 +118,17 @@ export class CandidateListComponent implements OnInit {
   }
 
   statusOptions = [
-    { label: 'AI_REVIEWED', value: 'AI_REVIEWED' },
-    { label: 'INTERVIEW 1 SELECTED', value: 'INTERVIEW 1 SELECTED' },
-    { label: 'SELECTED', value: 'SELECTED' },
-    { label: 'REJECTED', value: 'REJECTED' }
-  ];
+    { label: 'task_submitted', value: 'task_submitted'},
+    { label: 'ongoing_ai_review', value: 'ongoing_ai_review'},
+    { label: 'ai_reviewed', value: 'ai_reviewed'},
+    { label: 'rejected', value: 'rejected'},
+    { label: 'interview_1', value: 'interview_1'},
+    { label: 'interview_2', value: 'interview_2'},
+    { label: 'interview_3', value: 'interview_3'},
+    { label: 'offer_letter_sent', value: 'offer_letter_sent'},
+    { label: 'offer_letter_accepted', value: 'offer_letter_accepted'},
+    { label: 'joined', value: 'joined'}
+  ]
   
   onStatusChange(rowData: any) {
     this.rowData = rowData;
@@ -150,6 +156,10 @@ export class CandidateListComponent implements OnInit {
 
   submitBulkStatus() {
     console.log(this.selectedCandidates, this.statusForm.get('status')?.value);
+  }
+
+  sendEmail(status: String) {
+    console.log(this.selectedCandidates, status);
   }
 }
 

@@ -111,16 +111,30 @@
       </p-footer>
     </p-dialog>
 
-    <p-dialog header="Change status update" [(visible)]="bulkStatusUpdateDialogVisible" modal="true">
+    <p-dialog header="Actions" [(visible)]="bulkStatusUpdateDialogVisible" modal="true">
       <form [formGroup]="statusForm" (ngSubmit)="submitBulkStatus()">
-        <p-dropdown 
-          [options]="statusOptions" 
-          placeholder="Select Status"
-          formControlName="status"
-          appendTo="body">
-        </p-dropdown>
-        <button pButton label="Update" icon="pi pi-check" type="submit"></button>
+        <div class="p-grid">
+          <div class="p-col-6">
+            <p-dropdown 
+              [options]="statusOptions" 
+              placeholder="Select Status"
+              formControlName="status"
+              appendTo="body">
+            </p-dropdown>
+          </div>
+          <div class="p-col-6">
+            <button pButton label="Update" icon="pi pi-check" type="submit"></button>
+          </div>
+        </div>
       </form>
+      <div class="p-grid">
+        <div class="p-col-6">
+          <button pButton label="Send rejection email" icon="pi pi-check" (click)="sendEmail('reject')"></button>
+        </div>
+        <div class="p-col-6">
+          <button pButton label="Send selection email" icon="pi pi-check" (click)="sendEmail('select')"></button>
+        </div>
+      </div>
     </p-dialog>
   </div>
   
