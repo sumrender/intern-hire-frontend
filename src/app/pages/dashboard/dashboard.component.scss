@@ -1,18 +1,74 @@
 .dashboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .stat-card {
-    margin: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .stat-count {
+  margin: 20px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 30px;
     font-size: 24px;
-    font-weight: bold;
+    color: #495057;
   }
-  
+
+  .job-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .job-card {
+    width: 300px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .job-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    i {
+      font-size: 1.5rem;
+      color: #007ad9;
+    }
+  }
+
+  .job-details {
+    margin: 15px 0;
+    font-size: 16px;
+    color: #495057;
+    .job-phase {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+        color: #007ad9;
+      }
+
+      .phase-name {
+        flex-grow: 1;
+        text-align: left;
+      }
+
+      .candidate-count {
+        font-weight: bold;
+        color: #007ad9;
+      }
+    }
+  }
+
+  .job-card .ui-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+  }
+}

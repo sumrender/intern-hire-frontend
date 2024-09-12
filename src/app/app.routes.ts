@@ -8,7 +8,7 @@ import { CandidateProfileComponent } from './pages/candidate-profile/candidate-p
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
-  { path: 'jobs/:jobId', component: JobComponent },
+  { path: 'job/:jobId', component: JobComponent },
   { path: 'candidates', component: CandidatesComponent },
   { path: 'job-posts', component: JobPostListComponent },
   { path: 'create-job', component: CreateJobComponent },

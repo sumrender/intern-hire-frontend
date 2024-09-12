@@ -27,10 +27,15 @@ export class CandidateService {
       params.sortOrder = sortOrder.toString();
     }
     if (globalFilter) {
-      params.filter = globalFilter;
+      params.search = globalFilter;
     }
   
     return this.apiService.get<any>('/candidates', params);
+  }
+
+
+  getCandidateStats(): Observable<any> {
+    return this.apiService.get<any>('/candidate-stats');
   }
 
   getCandidateById(id: string): Observable<any> {

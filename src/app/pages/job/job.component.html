@@ -1,4 +1,4 @@
-<p-card header="{{job.jobId}} - {{job.jobTitle}}">
+<p-card header="{{job.job_id}} - {{job.job_title}}">
   <div class="button-container">
     <button pButton type="button" label="View job" icon="pi pi-cog" class="button-container-items" (click)="openJobModal()"></button>
     <button pButton type="button" label="Edit job" icon="pi pi-cog" class="button-container-items"></button>
@@ -20,12 +20,12 @@
 
 <p-dialog header="Job details" [(visible)]="showJobDetails" modal="true" [closable]="true">
  <h3>Job description</h3>
- <p>{{job.jobDesc}}</p>
+ <p>{{job.job_desc}}</p>
  <h3> Standards </h3>
- <!-- <ul>
+ <ul>
   <li *ngFor="let standard for job.standards">{{standard.key}}: {{standard.value}}</li>
- </ul> -->
+ </ul>
 
 </p-dialog>
 
-<app-candidate-list></app-candidate-list>
+<app-candidate-list ></app-candidate-list>

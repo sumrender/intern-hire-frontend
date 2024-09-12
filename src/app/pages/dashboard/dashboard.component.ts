@@ -1,45 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-
-interface CandidateStat {
-  _id: string;
-  count: number;
-}
+import { CandidateService } from '../../services/candidate.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,CardModule],
+  imports: [CardModule, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  stats: CandidateStat[] = [];
-
-  constructor(private http: HttpClient) {}
+  constructor(private candidateService: CandidateService) {}
+  stats: any[] = [
+    {
+      phases: [
+        {
+          phase: 'task_submitted',
+          count: 1
+        }
+      ],
+      job_id: null,
+      job_title: 'da'
+    },
+    {
+      phases: [
+        {
+          phase: 'task_submitted',
+          count: 137
+        }
+      ],
+      job_id: '1726132392587',
+      job_title: 'Frontend Intern'
+    }
+  ];
 
   ngOnInit(): void {
-    this.http.get<CandidateStat[]>('http://localhost:5000/candidate-stats').subscribe(
-      (data) => {
-        this.stats = data;
-      },
-      (error) => {
-        console.error('Error fetching stats:', error);
-      }
-    );
-  }
-
-  
-  getStatusLabel(status: string): string {
-    const statusLabels: { [key: string]: string } = {
-      'AI_REVIEWED': 'AI Reviewed',
-      'INTERVIEW_1': 'Interview 1',
-      'SELECTED': 'Selected',
-      'REJECTED': 'Rejected',
-      'SUBMITTED': 'Submitted',
-    };
-    return statusLabels[status] || status;
+    this.candidateService.getCandidateStats().subscribe((res)=>{
+      this.stats = res;
+    })
   }
 }

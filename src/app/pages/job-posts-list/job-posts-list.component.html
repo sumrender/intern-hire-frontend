@@ -16,14 +16,14 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-jobPost>
-        <tr>
-          <td>{{ jobPost.jobId }}</td>
-          <td>{{ jobPost.jobTitle }}</td>
-          <td>{{ jobPost.jobDomain }}</td>
-          <td>{{ jobPost.codeCoverage }}%</td>
-          <td>{{ jobPost.codeReviewScore }}</td>
-          <td>{{ jobPost.resumeScore }}</td>
-          <td>{{ jobPost.createdAt | date: 'short' }}</td>
+        <tr (click)="onRowClick(jobPost.job_id)" style="cursor: pointer;">
+          <td>{{ jobPost.job_id }}</td>
+          <td>{{ jobPost.job_title }}</td>
+          <td>{{ jobPost.job_domain }}</td>
+          <td>{{ jobPost.code_coverage }}%</td>
+          <td>{{ jobPost.code_review_score }}</td>
+          <td>{{ jobPost.resume_score }}</td>
+          <td>{{ jobPost.created_at | date: 'short' }}</td>
           <td>{{ jobPost.is_active ? 'Yes' : 'No' }}</td>
           <td>
             <button pButton label="Toggle Active" (click)="toggleJobStatus(jobPost)"></button>

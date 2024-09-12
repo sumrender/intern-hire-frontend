@@ -1,0 +1,47 @@
+<div class="job-edit-container" *ngIf="!isLoading; else loading">
+    <h2>Edit Job</h2>
+    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="job_title">Job Title</label>
+        <input id="job_title" formControlName="job_title" type="text" class="form-control" />
+        <div *ngIf="jobForm.get('job_title')?.invalid && jobForm.get('job_title')?.touched" class="error">
+          Job title is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="job_domain">Job Domain</label>
+        <input id="job_domain" formControlName="job_domain" type="text" class="form-control" />
+        <div *ngIf="jobForm.get('job_domain')?.invalid && jobForm.get('job_domain')?.touched" class="error">
+          Job domain is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="code_coverage">Code Coverage</label>
+        <input id="code_coverage" formControlName="code_coverage" type="number" class="form-control" />
+      </div>
+  
+      <div class="form-group">
+        <label for="code_review_score">Code Review Score</label>
+        <input id="code_review_score" formControlName="code_review_score" type="number" class="form-control" />
+      </div>
+  
+      <div class="form-group">
+        <label for="resume_score">Resume Score</label>
+        <input id="resume_score" formControlName="resume_score" type="number" class="form-control" />
+      </div>
+  
+      <div class="form-group">
+        <label for="is_active">Is Active?</label>
+        <input id="is_active" formControlName="is_active" type="checkbox" />
+      </div>
+  
+      <button type="submit" pButton label="Update Job" [disabled]="jobForm.invalid"></button>
+    </form>
+  </div>
+  
+  <ng-template #loading>
+    <div class="loading">Loading...</div>
+  </ng-template>
+  
