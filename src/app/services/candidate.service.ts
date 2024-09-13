@@ -39,4 +39,9 @@ export class CandidateService {
   getCandidatesByJobId(jobId: string): Observable<any> {
     return this.apiService.get(`/candidates?job_id=${jobId}`);
   }
+
+  updateCandidate(candidate_id: string, updatedFields: { [key: string]: any }): Observable<any> {
+    return this.apiService.put(`/candidates/${candidate_id}`, updatedFields);
+  }
+
 }

@@ -38,28 +38,27 @@ export class CandidateListComponent implements OnInit {
   statusChange: boolean = false;
   
   columns: any[] = [
-    { field: 'full_name', header: 'Full Name', visible: true },
-    { field: 'email', header: 'Email', visible: true },
-    { field: 'mobile_number', header: 'Mobile Number', visible: true },
-    { field: 'college_name', header: 'College', visible: true },
-    { field: 'year_of_passing', header: 'Year of Passing', visible: true },
-    { field: 'current_status', header: 'Status', visible: true },
-    { field: 'current_job_id', header: 'Current Job ID', visible: true },
-    { field: 'current_hiring_eligibility', header: 'Hiring Eligibility', visible: true },
-    { field: 'reapplied_time_gap', header: 'Reapplied Time Gap', visible: true },
+    { field: 'full_name', header: 'Full Name', visible: true, sortable: true },
+    { field: 'email', header: 'Email', visible: true, sortable: true },
+    { field: 'mobile_number', header: 'Mobile Number', visible: true, sortable: true },
+    { field: 'college_name', header: 'College', visible: true, sortable: true },
+    { field: 'year_of_passing', header: 'Year of Passing', visible: true, sortable: true },
+    { field: 'current_status', header: 'Status', visible: true, sortable: false },
+    { field: 'current_job_id', header: 'Current Job ID', visible: true, sortable: false },
+    { field: 'current_hiring_eligibility', header: 'Hiring Eligibility', visible: true, sortable: false },  // Not sortable
+    { field: 'reapplied_time_gap', header: 'Reapplied Time Gap', visible: true, sortable: false },  // Not sortable
     
     // Fields from the latest submission
-    { field: 'position', header: 'Position', visible: true },
-    { field: 'submitted_timestamp', header: 'Submitted Timestamp', visible: true },
-    { field: 'submission_status', header: 'Submission Status', visible: true },
-    { field: 'repo_link', header: 'Repo Link', visible: true },
-    { field: 'video_link', header: 'Video Link', visible: true },
-    { field: 'resume_link', header: 'Resume Link', visible: true },
-    { field: 'resume_review_overall_score', header: 'Resume Review Score', visible: true },
-    { field: 'code_review_overall_score', header: 'Code Review Score', visible: true },
-    { field: 'code_coverage_score', header: 'Code Coverage Score', visible: true },
-    { field: 'last_updated', header: 'Last Updated', visible: true }
+    { field: 'submission_status', header: 'Submission Status', visible: true, sortable: true },
+    { field: 'repo_link', header: 'Repo Link', visible: true, sortable: false },  // Not sortable
+    { field: 'video_link', header: 'Video Link', visible: true, sortable: false },  // Not sortable
+    { field: 'resume_link', header: 'Resume Link', visible: true, sortable: false },  // Not sortable
+    { field: 'resume_review_overall_score', header: 'Resume Review Score', visible: true, sortable: true },
+    { field: 'code_review_overall_score', header: 'Code Review Score', visible: true, sortable: true },
+    { field: 'code_coverage_score', header: 'Code Coverage Score', visible: true, sortable: true },
+    { field: 'last_updated', header: 'Last Updated', visible: true, sortable: true }
   ];
+  
 
   visibleColumns: any[] = this.columns.filter(col => col.visible);
   filterDialogVisible = false;
@@ -96,8 +95,6 @@ export class CandidateListComponent implements OnInit {
 
           return {
             ...candidate, // Spread the candidate object
-            position: latestSubmission.position || 'N/A',
-            submitted_timestamp: latestSubmission.submitted_timestamp || 'N/A',
             submission_status: latestSubmission.status || 'N/A',
             repo_link: latestSubmission.repo_link || 'N/A',
             video_link: latestSubmission.video_link || 'N/A',
