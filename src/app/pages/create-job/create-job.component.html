@@ -50,9 +50,9 @@
         </div>
 
         <div class="field">
-          <div><label for="baseUrl">Base repo URL*</label></div>
-          <input id="baseUrl" pInputText formControlName="baseUrl" placeholder="Enter base repo url"/>
-          <div *ngIf="jobForm.get('baseUrl')?.invalid && jobForm.get('baseUrl')?.touched">
+          <div><label for="github_url">Base repo URL*</label></div>
+          <input id="github_url" pInputText formControlName="github_url" placeholder="Enter base repo url"/>
+          <div *ngIf="jobForm.get('github_url')?.invalid && jobForm.get('github_url')?.touched">
             <small class="p-error">Base repo URL is required</small>
           </div>
         </div>

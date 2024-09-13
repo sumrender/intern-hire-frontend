@@ -46,6 +46,7 @@ export class CreateJobComponent {
       code_coverage: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(100)]],
       resume_score: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(10)]],
       code_review_score: ['', [Validators.pattern(/^[0-9]+$/), Validators.min(1), Validators.max(10)]],
+      github_url: ['', Validators.required],
       is_active: [true],
     });
   }
