@@ -1,17 +1,24 @@
 <nav class="navbar">
   <div class="navbar-container">
     <div class="navbar-brand">
-      <a href="#" class="navbar-logo">Fyle Hiring</a>
+      <a routerLink="/" class="navbar-logo">Fyle Hiring</a>
     </div>
     <div class="navbar-toggle" (click)="toggleMenu()">
       <i class="pi pi-bars"></i>
     </div>
     <ul class="navbar-links" [class.active]="isMenuOpen">
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="/candidates">Candidates</a></li>
-      <li><a href="/create-job">Create Job</a></li>
-      <li><a href="/job-posts">Job Posts</a></li>
-      <li><a href="#">Logout</a></li>
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="active-tab" class="nav-link">Dashboard</a>
+      </li>
+      <li>
+        <a routerLink="/candidates" routerLinkActive="active-tab" class="nav-link">Candidates</a>
+      </li>
+      <li>
+        <a routerLink="/create-job" routerLinkActive="active-tab" class="nav-link">Create Job</a>
+      </li>
+      <li>
+        <a routerLink="/job-posts" routerLinkActive="active-tab" class="nav-link">Job Posts</a>
+      </li>
     </ul>
   </div>
 </nav>

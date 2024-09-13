@@ -1,31 +1,40 @@
 <div class="dashboard-container">
   <h2>Job Candidates Stats</h2>
 
-  <div class="job-cards">
-    <p-card *ngFor="let job of stats" class="job-card">
-      <ng-template pTemplate="header">
-        <div class="job-title">
-          <i class="pi pi-briefcase"></i>
-          <span>{{ job.job_title ? job.job_title : 'Unknown Job' }}</span>
-        </div>
-      </ng-template>
+  <div *ngFor="let job of stats" class="job-section">
+    <!-- Job Title -->
+    <h3 class="job-title">
+      <i class="pi pi-briefcase"></i>
+      <span>{{ job.job_title ? job.job_title : 'Unknown Job' }}</span>
+    </h3>
 
-      <div class="job-details">
-        <div *ngFor="let phase of job.phases" class="job-phase">
-          <i class="pi pi-users"></i>
-          <span class="phase-name">{{ phase.phase | titlecase }}</span>
+    <!-- Phases for this Job -->
+    <div class="phases-container">
+      <p-card 
+        *ngFor="let phase of job.phases" 
+        class="phase-card"
+        (click)="redirectToCandidates(job.job_id, phase.phase)"> 
+        <ng-template pTemplate="header">
+          <div class="phase-title">
+            <i class="pi pi-users"></i>
+            <span class="phase-name">{{ formatPhaseTitle(phase.phase) }}</span>
+          </div>
+        </ng-template>
+
+        <div class="phase-details">
+          <i class="pi pi-chart-bar"></i>
           <span class="candidate-count">{{ phase.count }} candidates</span>
         </div>
-      </div>
 
-      <ng-template pTemplate="footer">
-        <span *ngIf="job.job_id">
-          <i class="pi pi-id-card"></i> Job ID: {{ job.job_id }}
-        </span>
-        <span *ngIf="!job.job_id">
-          <i class="pi pi-exclamation-triangle"></i> No Job ID
-        </span>
-      </ng-template>
-    </p-card>
+        <!-- <ng-template pTemplate="footer">
+          <span *ngIf="job.job_id">
+            <i class="pi pi-id-card"></i> Job ID: {{ job.job_id }}
+          </span>
+          <span *ngIf="!job.job_id">
+            <i class="pi pi-exclamation-triangle"></i> No Job ID
+          </span>
+        </ng-template> -->
+      </p-card>
+    </div>
   </div>
 </div>
