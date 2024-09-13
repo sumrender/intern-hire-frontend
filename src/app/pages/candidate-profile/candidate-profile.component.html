@@ -1,6 +1,16 @@
 <div class="candidate-profile-container">
   <h2 class="profile-header"><i class="pi pi-id-card"></i> Candidate Profile</h2>
 
+  <!-- Fit Evaluation Section -->
+  <p-card header="Fit Evaluation" class="profile-card" [styleClass]="fitEvaluation === 'Best Fit' ? 'best-fit' : 'not-good-fit'">
+    <h3 *ngIf="fitEvaluation === 'Best Fit'" class="best-fit-text">
+      <i class="pi pi-check-circle"></i> Best Fit
+    </h3>
+    <h3 *ngIf="fitEvaluation === 'Not a Good Fit'" class="not-good-fit-text">
+      <i class="pi pi-times-circle"></i> Not a Good Fit
+    </h3>
+  </p-card>
+
   <!-- Personal Information Section -->
   <p-card header="Personal Information" class="profile-card">
     <div class="personal-info">
@@ -15,22 +25,27 @@
   <!-- Resume Review Section -->
   <p-card header="Resume Review" class="profile-card">
     <p-chart type="radar" [data]="resumeReviewChartData" [options]="chartOptions"></p-chart>
+    <div class="summary">
+      <h4><i class="pi pi-file"></i> Summary</h4>
+      <p>{{ candidate.submission[0]?.resume_review?.resume_review_overall_summary || 'No summary available' }}</p>
+    </div>
   </p-card>
 
   <!-- Code Review Section -->
   <p-card header="Code Review" class="profile-card">
     <p-chart type="bar" [data]="codeReviewChartData" [options]="chartOptions"></p-chart>
-  </p-card>
-
-  <!-- Submission Details -->
-  <p-card header="Submission Details" class="profile-card">
-    <p><i class="pi pi-code"></i> <strong>Repository Link:</strong> <a [href]="candidate.submission[0]?.repo_link" target="_blank">View Repo</a></p>
-    <p><i class="pi pi-video"></i> <strong>Video Link:</strong> <a [href]="candidate.submission[0]?.video_link" target="_blank">Watch Video</a></p>
-    <p><i class="pi pi-file"></i> <strong>Resume Link:</strong> <a [href]="candidate.submission[0]?.resume_link" target="_blank">Download Resume</a></p>
+    <div class="summary">
+      <h4><i class="pi pi-file"></i> Summary</h4>
+      <p>{{ candidate.submission[0]?.code_review?.summary || 'No summary available' }}</p>
+    </div>
   </p-card>
 
   <!-- Code Coverage Section -->
   <p-card header="Code Coverage" class="profile-card">
     <p-chart type="doughnut" [data]="codeCoverageChartData" [options]="chartOptions"></p-chart>
+    <div class="summary">
+      <h4><i class="pi pi-file"></i> Code Coverage Description</h4>
+      <p>{{ candidate.submission[0]?.code_coverage_description || 'No description available' }}</p>
+    </div>
   </p-card>
 </div>

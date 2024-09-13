@@ -11,6 +11,12 @@ background-color: #f8f9fa;
 border-radius: 8px;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
+.p-input-icon-left {
+  .pi-search {
+    margin-left: 160px;
+  }
+}
+
   h2 {
     font-size: 1.8rem;
     color: $heading-color;
