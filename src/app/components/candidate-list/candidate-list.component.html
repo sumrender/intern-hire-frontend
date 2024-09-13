@@ -2,8 +2,8 @@
     <div class="p-grid">
       <div class="p-col-6">
         <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
           <input pInputText type="text" placeholder="Search..." [(ngModel)]="globalFilter" (input)="onGlobalFilter($event)">
+          <i class="pi pi-search"></i>
         </span>
       </div>
       <div class="p-col-6 text-right">
@@ -37,6 +37,9 @@
         <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
+        <th>
+          View Profile
+        </th>
         <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.sortable ? col.field : null">
           {{col.header}}
           <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
@@ -49,11 +52,11 @@
         <td>
           <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
         </td>
-        <td *ngFor="let col of visibleColumns">
-          {{ rowData[col.field] || 'N/A' }}
-        </td>
         <td>
           <button pButton type="button" icon="pi pi-eye" label="View" (click)="viewCandidate(rowData)"></button>
+        </td>
+        <td *ngFor="let col of visibleColumns">
+          {{ rowData[col.field] || 'N/A' }}
         </td>
       </tr>
     </ng-template>

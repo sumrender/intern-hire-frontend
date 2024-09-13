@@ -45,19 +45,19 @@ export class CandidateListComponent implements OnInit {
     { field: 'college_name', header: 'College', visible: true, sortable: true },
     { field: 'year_of_passing', header: 'Year of Passing', visible: true, sortable: true },
     { field: 'current_status', header: 'Status', visible: true, sortable: false },
-    { field: 'current_job_id', header: 'Current Job ID', visible: true, sortable: false },
+    { field: 'current_job_id', header: 'Current Job ID', visible: false, sortable: false },
     { field: 'current_hiring_eligibility', header: 'Hiring Eligibility', visible: true, sortable: false },  // Not sortable
     { field: 'reapplied_time_gap', header: 'Reapplied Time Gap', visible: true, sortable: false },  // Not sortable
     
     // Fields from the latest submission
-    { field: 'submission_status', header: 'Submission Status', visible: true, sortable: true },
-    { field: 'repo_link', header: 'Repo Link', visible: true, sortable: false },  // Not sortable
-    { field: 'video_link', header: 'Video Link', visible: true, sortable: false },  // Not sortable
-    { field: 'resume_link', header: 'Resume Link', visible: true, sortable: false },  // Not sortable
+    { field: 'submission_status', header: 'Submission Status', visible: false, sortable: true },
+    { field: 'repo_link', header: 'Repo Link', visible: false, sortable: false },  // Not sortable
+    { field: 'video_link', header: 'Video Link', visible: false, sortable: false },  // Not sortable
+    { field: 'resume_link', header: 'Resume Link', visible: false, sortable: false },  // Not sortable
     { field: 'resume_review_overall_score', header: 'Resume Review Score', visible: true, sortable: true },
     { field: 'code_review_overall_score', header: 'Code Review Score', visible: true, sortable: true },
     { field: 'code_coverage_score', header: 'Code Coverage Score', visible: true, sortable: true },
-    { field: 'last_updated', header: 'Last Updated', visible: true, sortable: true }
+    { field: 'last_updated', header: 'Last Updated', visible: false, sortable: false }
   ];
   
 
@@ -212,7 +212,8 @@ export class CandidateListComponent implements OnInit {
   }
 
   viewCandidate(candidate: any) {
-    const candidateId = candidate.id; // Assuming you have a unique candidate ID
+    // console.log("cheicing", candidate);
+    const candidateId = candidate.candidate_id; // Assuming you have a unique candidate ID
     this.router.navigate(['/candidates', candidateId]);
   }
 }

@@ -1,20 +1,36 @@
-<div class="candidate-profile">
-    <h2>{{ candidateData?.full_name }}</h2>
-    <p><strong>Email:</strong> {{ candidateData?.email }}</p>
-    <p><strong>Phone:</strong> {{ candidateData?.mobile_number }}</p>
-    <p><strong>College:</strong> {{ candidateData?.college_name }}</p>
-    <p><strong>Year of Passing:</strong> {{ candidateData?.year_of_passing }}</p>
-  
-    <h3>Submissions</h3>
-    <div *ngFor="let submission of candidateData?.submission">
-      <h4>{{ submission.position }} Submission</h4>
-      <p><strong>Status:</strong> {{ submission.status }}</p>
-      <p><strong>Time Taken:</strong> {{ submission.time_taken }}</p>
-      <p><strong>Repo Link:</strong> <a [href]="submission.repo_link" target="_blank">{{ submission.repo_link }}</a></p>
-      <p><strong>Video Link:</strong> <a [href]="submission.video_link" target="_blank">{{ submission.video_link }}</a></p>
+<div class="candidate-profile-container">
+  <h2 class="profile-header"><i class="pi pi-id-card"></i> Candidate Profile</h2>
+
+  <!-- Personal Information Section -->
+  <p-card header="Personal Information" class="profile-card">
+    <div class="personal-info">
+      <p><i class="pi pi-user"></i> <strong>Name:</strong> {{ candidate.full_name }}</p>
+      <p><i class="pi pi-envelope"></i> <strong>Email:</strong> {{ candidate.email }}</p>
+      <p><i class="pi pi-phone"></i> <strong>Mobile:</strong> {{ candidate.mobile_number }}</p>
+      <p><i class="pi pi-calendar"></i> <strong>Year of Passing:</strong> {{ candidate.year_of_passing }}</p>
+      <p><i class="pi pi-home"></i> <strong>College:</strong> {{ candidate.college_name }}</p>
     </div>
-  
-    <h3>Scores</h3>
-    <p-chart type="bar" [data]="chartData" [options]="{ responsive: true }"></p-chart>
-  </div>
-  
+  </p-card>
+
+  <!-- Resume Review Section -->
+  <p-card header="Resume Review" class="profile-card">
+    <p-chart type="radar" [data]="resumeReviewChartData" [options]="chartOptions"></p-chart>
+  </p-card>
+
+  <!-- Code Review Section -->
+  <p-card header="Code Review" class="profile-card">
+    <p-chart type="bar" [data]="codeReviewChartData" [options]="chartOptions"></p-chart>
+  </p-card>
+
+  <!-- Submission Details -->
+  <p-card header="Submission Details" class="profile-card">
+    <p><i class="pi pi-code"></i> <strong>Repository Link:</strong> <a [href]="candidate.submission[0]?.repo_link" target="_blank">View Repo</a></p>
+    <p><i class="pi pi-video"></i> <strong>Video Link:</strong> <a [href]="candidate.submission[0]?.video_link" target="_blank">Watch Video</a></p>
+    <p><i class="pi pi-file"></i> <strong>Resume Link:</strong> <a [href]="candidate.submission[0]?.resume_link" target="_blank">Download Resume</a></p>
+  </p-card>
+
+  <!-- Code Coverage Section -->
+  <p-card header="Code Coverage" class="profile-card">
+    <p-chart type="doughnut" [data]="codeCoverageChartData" [options]="chartOptions"></p-chart>
+  </p-card>
+</div>
