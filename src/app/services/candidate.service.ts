@@ -11,7 +11,7 @@ export class CandidateService {
   
   constructor(private http: HttpClient, private apiService: ApiService) {}
 
-  getCandidates(offset?: number, limit?: number, sortField?: string, sortOrder?: number, globalFilter?: string): Observable<any> {
+  getCandidates(offset?: number, limit?: number, sortField?: string, sortOrder?: number, globalFilter?: string, jobId?: string): Observable<any> {
     const params: any = {};
   
     if (offset !== undefined && offset !== null) {
@@ -29,6 +29,10 @@ export class CandidateService {
     if (globalFilter) {
       params.search = globalFilter;
     }
+
+    if(jobId){
+      params.current_job_id = jobId;
+    }
   
     return this.apiService.get<any>('/candidates', params);
   }
@@ -40,5 +44,9 @@ export class CandidateService {
 
   getCandidateById(id: string): Observable<any> {
     return of(candidates[0]);
+  }
+
+  getCandidatesByJobId(jobId: string): Observable<any> {
+    return this.apiService.get(`/candidates?job_id=${jobId}`);
   }
 }

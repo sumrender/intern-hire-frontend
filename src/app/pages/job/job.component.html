@@ -1,7 +1,7 @@
 <p-card header="{{job.job_id}} - {{job.job_title}}">
   <div class="button-container">
     <button pButton type="button" label="View job" icon="pi pi-cog" class="button-container-items" (click)="openJobModal()"></button>
-    <button pButton type="button" label="Edit job" icon="pi pi-cog" class="button-container-items"></button>
+    <button pButton type="button" label="Edit job" icon="pi pi-cog" class="button-container-items" (click)="editJob()"></button>
     <p-fileUpload 
       mode="basic" 
       chooseLabel="Upload excel sheet" 
@@ -22,10 +22,10 @@
  <h3>Job description</h3>
  <p>{{job.job_desc}}</p>
  <h3> Standards </h3>
- <ul>
+ <!-- <ul>
   <li *ngFor="let standard for job.standards">{{standard.key}}: {{standard.value}}</li>
- </ul>
+ </ul> -->
 
 </p-dialog>
 
-<app-candidate-list ></app-candidate-list>
+<app-candidate-list [jobId]="job.job_id"></app-candidate-list>

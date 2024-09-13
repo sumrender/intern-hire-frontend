@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { JobPostService } from '../../services/job-post.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job',
@@ -22,12 +23,11 @@ export class JobComponent implements OnInit {
 
   job: any;
 
-  constructor(private jobPostService: JobPostService, private route: ActivatedRoute) {}
+  constructor(private jobPostService: JobPostService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    // Get jobId from route parameters
     this.route.paramMap.subscribe(params => {
-      this.jobId = params.get('jobId') || ''; // Extract jobId from the URL
+      this.jobId = params.get('jobId') || '';
       console.log('chekcint eh job id', this.jobId);
       if (this.jobId) {
         this.loadJobDetails();
@@ -53,5 +53,9 @@ export class JobComponent implements OnInit {
 
   openJobModal() {
     this.showJobDetails = true;
+  }
+
+  editJob() {
+    this.router.navigate(['/edit-job', this.job.job_id]);  // Redirect to edit job page with job_id as a route parameter
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { CandidateService } from '../../services/candidate.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'; 
@@ -19,6 +19,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./candidate-list.component.scss']
 })
 export class CandidateListComponent implements OnInit {
+
+  @Input() jobId!: string; 
 
   candidates: any[] = [];
   totalRecords: number = 0;
@@ -72,7 +74,7 @@ export class CandidateListComponent implements OnInit {
 
   loadCandidates(event: any) {
     const { first, rows, sortField, sortOrder } = event;
-    this.candidateService.getCandidates(first, rows, sortField, sortOrder, this.globalFilter)
+    this.candidateService.getCandidates(first, rows, sortField, sortOrder, this.globalFilter, this.jobId)
       .subscribe(response => {
         this.candidates = response?.data; 
         this.totalRecords = response?.count; 

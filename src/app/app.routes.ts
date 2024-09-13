@@ -6,9 +6,11 @@ import { CreateJobComponent } from './pages/create-job/create-job.component';
 import { JobPostListComponent } from './pages/job-posts-list/job-posts-list.component';
 import { CandidateProfileComponent } from './pages/candidate-profile/candidate-profile.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { JobEditComponent } from './pages/job-edit/job-edit.component';
 
 export const routes: Routes = [
   { path: 'job/:jobId', component: JobComponent },
+  { path: 'edit-job/:jobId', component: JobEditComponent},
   { path: 'candidates', component: CandidatesComponent },
   { path: 'job-posts', component: JobPostListComponent },
   { path: 'create-job', component: CreateJobComponent },

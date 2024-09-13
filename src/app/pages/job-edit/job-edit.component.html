@@ -18,26 +18,34 @@
       </div>
   
       <div class="form-group">
-        <label for="code_coverage">Code Coverage</label>
-        <input id="code_coverage" formControlName="code_coverage" type="number" class="form-control" />
+        <label for="job_desc">Job Description</label>
+        <textarea id="job_desc" formControlName="job_desc" rows="4" class="form-control"></textarea>
+        <div *ngIf="jobForm.get('job_desc')?.invalid && jobForm.get('job_desc')?.touched" class="error">
+          Job description is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="code_coverage">Code Coverage (%)</label>
+        <input id="code_coverage" formControlName="code_coverage" type="number" class="form-control" min="0" max="100" />
       </div>
   
       <div class="form-group">
         <label for="code_review_score">Code Review Score</label>
-        <input id="code_review_score" formControlName="code_review_score" type="number" class="form-control" />
+        <input id="code_review_score" formControlName="code_review_score" type="number" class="form-control" min="0" max="100" />
       </div>
   
       <div class="form-group">
         <label for="resume_score">Resume Score</label>
-        <input id="resume_score" formControlName="resume_score" type="number" class="form-control" />
+        <input id="resume_score" formControlName="resume_score" type="number" class="form-control" min="0" max="100" />
       </div>
   
-      <div class="form-group">
+      <div class="form-group checkbox-group">
         <label for="is_active">Is Active?</label>
-        <input id="is_active" formControlName="is_active" type="checkbox" />
+        <input id="is_active" formControlName="is_active" type="checkbox" class="form-control-checkbox" />
       </div>
   
-      <button type="submit" pButton label="Update Job" [disabled]="jobForm.invalid"></button>
+      <button type="submit" pButton label="Update Job" [disabled]="jobForm.invalid">Update Job</button>
     </form>
   </div>
   

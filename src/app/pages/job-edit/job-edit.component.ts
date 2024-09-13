@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobPostService } from '../../services/job-post.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-job-edit',
   standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './job-edit.component.html',
   styleUrls: ['./job-edit.component.scss']
 })
@@ -31,6 +33,7 @@ export class JobEditComponent implements OnInit {
     this.jobForm = this.fb.group({
       job_title: ['', Validators.required],
       job_domain: ['', Validators.required],
+      job_desc: ['', Validators.required],
       code_coverage: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       code_review_score: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       resume_score: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -44,6 +47,7 @@ export class JobEditComponent implements OnInit {
       this.jobForm.patchValue({
         job_title: this.job.job_title,
         job_domain: this.job.job_domain,
+        job_desc: this.job.job_desc,
         code_coverage: this.job.code_coverage,
         code_review_score: this.job.code_review_score,
         resume_score: this.job.resume_score,
@@ -58,7 +62,7 @@ export class JobEditComponent implements OnInit {
       this.jobPostService.updateJob(this.jobId, this.jobForm.value).subscribe(
         (response) => {
           console.log('Job updated successfully', response);
-          this.router.navigate(['/jobs']);
+          this.router.navigate(['/job-posts']);
         },
         (error) => {
           console.error('Failed to update job', error);

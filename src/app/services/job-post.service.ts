@@ -16,11 +16,11 @@ export class JobPostService {
 
   updateJobStatus(jobId: string, is_active: boolean): Observable<any> {
     console.log("chekcingte hte ", jobId);
-    return this.apiService.put(`/job-post/${jobId}/status`, { is_active });
+    return this.apiService.put(`/job-post/${jobId}`, { is_active });
   }
 
-  updateJob(jobId: string, updatedFields: { [key: string]: any }): Observable<any> {
-    return this.apiService.put(`/job-post/${jobId}/status`, updatedFields);
+  updateJob(job_id: string, updatedFields: { [key: string]: any }): Observable<any> {
+    return this.apiService.put(`/job-post/${job_id}`, updatedFields);
   }
 
   getAllJobPosts(offset: number = 0, limit: number = 10): Observable<{ count: number, data: JobPost[] }> {
