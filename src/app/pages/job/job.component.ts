@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { FileUploadModule, FileBeforeUploadEvent, UploadEvent } from 'primeng/fileupload';
-import { environment } from '../../../environment';
+import { environment } from '../../../environment.prod';
 import { CandidateListComponent } from '../../components/candidate-list/candidate-list.component';
 import { DialogModule } from 'primeng/dialog';
 import { JobPostService } from '../../services/job-post.service';
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class JobComponent implements OnInit {
   jobId: string = '';
-  uploadUrl = environment.uploadExcelUrl;
+  uploadUrl = environment.apiUrl + '/upload-excel';
   showJobDetails: boolean = false;
 
   job: any;
