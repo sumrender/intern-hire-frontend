@@ -37,7 +37,7 @@
         <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th *ngIf="jobData">Fit Evaluation</th>
+        <th *ngIf="fitEvaluation != ''">Fit Evaluation</th>
         <th>View Profile</th>
         <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.sortable ? col.field : null">
           {{col.header}}
@@ -51,7 +51,7 @@
         <td>
           <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
         </td>
-        <td *ngIf="jobData">
+        <td *ngIf="fitEvaluation != ''">
           <i 
           [class]="rowData.fitEvaluation === 'Best Fit' ? 'pi pi-check-circle' : 'pi pi-times-circle'"
           [style.color]="rowData.fitEvaluation === 'Best Fit' ? 'green' : 'red'">

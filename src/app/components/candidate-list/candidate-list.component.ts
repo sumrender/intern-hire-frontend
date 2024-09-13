@@ -26,6 +26,7 @@ export class CandidateListComponent implements OnInit {
   @Input() status: string = '';
   @Input() jobData!: JobPost;
 
+  fitEvaluation: string = '';
   candidates: Candidate[] = [];  // Explicitly use the Candidate type
   totalRecords: number = 0;
   globalFilter: string = '';
@@ -96,15 +97,15 @@ export class CandidateListComponent implements OnInit {
             ? candidate.submission[candidate.submission.length - 1]
             : {} as Submission;  // Cast empty object as Submission
 
-            let fitEvaluation = null;
+            // this.fitEvaluation = 'null';
             
-            if (this.jobData) {
+            if (this.jobData && latestSubmission.status!=='task_submitted') {
               const job = this.jobData;
               const isBestFit = latestSubmission.resume_review?.resume_review_overall_score >= job.resume_score &&
                                 latestSubmission.code_review?.overall_score >= job.code_review_score &&
                                 latestSubmission.code_coverage_score >= job.code_coverage;
     
-              fitEvaluation = isBestFit ? 'Best Fit' : 'Not a Good Fit';
+              this.fitEvaluation = isBestFit ? 'Best Fit' : 'Not a Good Fit';
             }
           return {
             ...candidate, // Spread the candidate object
@@ -116,7 +117,7 @@ export class CandidateListComponent implements OnInit {
             code_review_overall_score: latestSubmission.code_review?.overall_score || 'N/A',
             code_coverage_score: latestSubmission.code_coverage_score || 'N/A',
             last_updated: latestSubmission.last_updated || 'N/A',
-            fitEvaluation
+            fitEvaluation: this.fitEvaluation
           };
         }) || [];
 
