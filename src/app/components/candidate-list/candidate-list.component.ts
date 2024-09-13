@@ -1,7 +1,9 @@
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CandidateService } from '../../services/candidate.service';
+import { Candidate } from '../../models/candidate.model';  // Import the interfaces
+import { Submission } from '../../models/submission.model';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'; 
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -9,7 +11,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';  
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-candidate-list',
@@ -22,7 +23,7 @@ export class CandidateListComponent implements OnInit {
 
   @Input() jobId!: string; 
 
-  candidates: any[] = [];
+  candidates: Candidate[] = [];  // Explicitly use the Candidate type
   totalRecords: number = 0;
   globalFilter: string = '';
   rowsPerPage: number = 10;
@@ -34,7 +35,6 @@ export class CandidateListComponent implements OnInit {
   ];
   sortField: string = 'full_name';
   sortOrder: number = 1;
-  selectedCandidate: any;
   statusChange: boolean = false;
   
   columns: any[] = [
@@ -44,9 +44,21 @@ export class CandidateListComponent implements OnInit {
     { field: 'college_name', header: 'College', visible: true },
     { field: 'year_of_passing', header: 'Year of Passing', visible: true },
     { field: 'current_status', header: 'Status', visible: true },
-    { field: 'submission[0].position', header: 'Position', visible: true },
-    { field: 'submission[0].code_review_overall_score', header: 'Code Review Score', visible: true },
-    { field: 'submission[0].resume_review_overall_score', header: 'Resume Review Score', visible: true }
+    { field: 'current_job_id', header: 'Current Job ID', visible: true },
+    { field: 'current_hiring_eligibility', header: 'Hiring Eligibility', visible: true },
+    { field: 'reapplied_time_gap', header: 'Reapplied Time Gap', visible: true },
+    
+    // Fields from the latest submission
+    { field: 'position', header: 'Position', visible: true },
+    { field: 'submitted_timestamp', header: 'Submitted Timestamp', visible: true },
+    { field: 'submission_status', header: 'Submission Status', visible: true },
+    { field: 'repo_link', header: 'Repo Link', visible: true },
+    { field: 'video_link', header: 'Video Link', visible: true },
+    { field: 'resume_link', header: 'Resume Link', visible: true },
+    { field: 'resume_review_overall_score', header: 'Resume Review Score', visible: true },
+    { field: 'code_review_overall_score', header: 'Code Review Score', visible: true },
+    { field: 'code_coverage_score', header: 'Code Coverage Score', visible: true },
+    { field: 'last_updated', header: 'Last Updated', visible: true }
   ];
 
   visibleColumns: any[] = this.columns.filter(col => col.visible);
@@ -58,7 +70,7 @@ export class CandidateListComponent implements OnInit {
   statusForm: FormGroup;
   rowData: any;
 
-  constructor(private candidateService: CandidateService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
+  constructor(private candidateService: CandidateService, private router: Router, private fb: FormBuilder) {
     this.reasonForm = this.fb.group({
       reason: ['', Validators.required]
     });
@@ -74,10 +86,32 @@ export class CandidateListComponent implements OnInit {
 
   loadCandidates(event: any) {
     const { first, rows, sortField, sortOrder } = event;
+
     this.candidateService.getCandidates(first, rows, sortField, sortOrder, this.globalFilter, this.jobId)
       .subscribe(response => {
-        this.candidates = response?.data; 
-        this.totalRecords = response?.count; 
+        this.candidates = response?.data.map((candidate: Candidate) => {
+          const latestSubmission: Submission = candidate.submission?.length > 0
+            ? candidate.submission[candidate.submission.length - 1]
+            : {} as Submission;  // Cast empty object as Submission
+
+          return {
+            ...candidate, // Spread the candidate object
+            position: latestSubmission.position || 'N/A',
+            submitted_timestamp: latestSubmission.submitted_timestamp || 'N/A',
+            submission_status: latestSubmission.status || 'N/A',
+            repo_link: latestSubmission.repo_link || 'N/A',
+            video_link: latestSubmission.video_link || 'N/A',
+            resume_link: latestSubmission.resume_link || 'N/A',
+            resume_review_overall_score: latestSubmission.resume_review?.resume_review_overall_score || 'N/A',
+            code_review_overall_score: latestSubmission.code_review?.overall_score || 'N/A',
+            code_coverage_score: latestSubmission.code_coverage_score || 'N/A',
+            last_updated: latestSubmission.last_updated || 'N/A'
+          };
+        }) || [];
+
+        this.totalRecords = response?.count || 0;
+      }, error => {
+        console.error('Error fetching candidates', error);
       });
   }
 

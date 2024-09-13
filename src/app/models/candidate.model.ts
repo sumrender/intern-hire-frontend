@@ -8,6 +8,8 @@ export interface Candidate {
     college_name: string;
     year_of_passing: string;
     current_status: string;
+    current_job_id: string;
     current_hiring_eligibility: boolean;
+    reapplied_time_gap: string;
     submission: Submission[];
-}
+  }

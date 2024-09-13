@@ -16,62 +16,44 @@
     </div>
   
     <p-table 
-      [value]="candidates" 
-      [paginator]="true" 
-      [rows]="rowsPerPage" 
-      [totalRecords]="totalRecords" 
-      [lazy]="true"
-      [globalFilterFields]="['full_name', 'email', 'mobile_number']" 
-      (onLazyLoad)="loadCandidates($event)"
-      [resizableColumns]="true" 
-      [scrollable]="true" 
-      [(selection)]="selectedCandidates" 
-      [columns]="visibleColumns"
-      [sortField]="sortField" 
-      [sortOrder]="sortOrder"
-      (onRowSelect)="navigateToProfile($event)">
-
-      <ng-template pTemplate="header">
-        <tr>
-          <th>
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-          </th>
-          <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field">
-            {{col.header}}
-            <p-sortIcon [field]="col.field"></p-sortIcon>
-          </th>
-        </tr>
-      </ng-template>
+    [value]="candidates" 
+    [paginator]="true" 
+    [rows]="rowsPerPage" 
+    [totalRecords]="totalRecords" 
+    [lazy]="true"
+    [globalFilterFields]="['full_name', 'email', 'mobile_number']" 
+    (onLazyLoad)="loadCandidates($event)"
+    [resizableColumns]="true" 
+    [scrollable]="true" 
+    [(selection)]="selectedCandidates" 
+    [columns]="visibleColumns"
+    [sortField]="sortField" 
+    [sortOrder]="sortOrder"
+    (onRowSelect)="navigateToProfile($event)">
   
-      <ng-template pTemplate="body" let-rowData>
-        <tr>
-          <td>
-            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
-          </td>
-          <td *ngFor="let col of visibleColumns">
-            <ng-container *ngIf="col.field === 'current_status'; else standardField">
-              <p-dropdown 
-                [options]="statusOptions" 
-                [(ngModel)]="rowData.current_status" 
-                (onChange)="onStatusChange(rowData)"
-                placeholder="Select Status"
-                appendTo="body">
-              </p-dropdown>
-            </ng-container>
-            <ng-template #standardField>
-              <ng-container *ngIf="col.field.includes('submission'); else otherFields">
-                {{ col.field === 'submission[0].position' ? rowData.submission[0]?.position : '' }}
-                {{ col.field === 'submission[0].code_review_overall_score' ? rowData.submission[0]?.code_review_overall_score : '' }}
-                {{ col.field === 'submission[0].resume_review_overall_score' ? rowData.submission[0]?.resume_review_overall_score : '' }}
-              </ng-container>
-              <ng-template #otherFields>
-                {{ rowData[col.field] }}
-              </ng-template>
-            </ng-template>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+  
+    <ng-template pTemplate="body" let-rowData>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+        </td>
+        <td *ngFor="let col of visibleColumns">
+          {{ rowData[col.field] || 'N/A' }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>  
 
     <p-dialog header="Provide Reasons" [(visible)]="statusChange" modal="true" [closable]="true" (onHide)="onDialogClose()">
       <form [formGroup]="reasonForm" (ngSubmit)="submitForm()">
