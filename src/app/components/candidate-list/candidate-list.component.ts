@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class CandidateListComponent implements OnInit {
 
   @Input() jobId!: string; 
+  @Input() status: string = '';
 
   candidates: Candidate[] = [];  // Explicitly use the Candidate type
   totalRecords: number = 0;
@@ -86,7 +87,7 @@ export class CandidateListComponent implements OnInit {
   loadCandidates(event: any) {
     const { first, rows, sortField, sortOrder } = event;
 
-    this.candidateService.getCandidates(first, rows, sortField, sortOrder, this.globalFilter, this.jobId)
+    this.candidateService.getCandidates(first, rows, sortField, sortOrder, this.globalFilter, this.jobId, this.status)
       .subscribe(response => {
         this.candidates = response?.data.map((candidate: Candidate) => {
           const latestSubmission: Submission = candidate.submission?.length > 0

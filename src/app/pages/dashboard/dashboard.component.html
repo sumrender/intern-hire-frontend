@@ -10,11 +10,14 @@
 
     <!-- Phases for this Job -->
     <div class="phases-container">
-      <p-card *ngFor="let phase of job.phases" class="phase-card">
+      <p-card 
+        *ngFor="let phase of job.phases" 
+        class="phase-card"
+        (click)="redirectToCandidates(job.job_id, phase.phase)"> 
         <ng-template pTemplate="header">
           <div class="phase-title">
             <i class="pi pi-users"></i>
-            <span class="phase-name">{{ phase.phase | titlecase }}</span>
+            <span class="phase-name">{{ formatPhaseTitle(phase.phase) }}</span>
           </div>
         </ng-template>
 

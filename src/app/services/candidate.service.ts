@@ -11,7 +11,7 @@ export class CandidateService {
   
   constructor(private http: HttpClient, private apiService: ApiService) {}
 
-  getCandidates(offset?: number, limit?: number, sortField?: string, sortOrder?: number, globalFilter?: string, jobId?: string): Observable<{ data: Candidate[], count: number }> {
+  getCandidates(offset?: number, limit?: number, sortField?: string, sortOrder?: number, globalFilter?: string, jobId?: string, status?: string): Observable<{ data: Candidate[], count: number }> {
     const params: any = {};
 
     if (offset !== undefined) params.offset = offset.toString();
@@ -20,6 +20,7 @@ export class CandidateService {
     if (sortOrder !== undefined) params.sortOrder = sortOrder.toString();
     if (globalFilter) params.search = globalFilter;
     if (jobId) params.current_job_id = jobId;
+    if(status) params.current_status = status.toLowerCase();
   
     return this.apiService.get<{ data: Candidate[], count: number }>('/candidates', params);
   }
