@@ -38,7 +38,7 @@
         </th>
         <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.sortable ? col.field : null">
           {{col.header}}
-          <p-sortIcon [field]="col.field" *ngif="col.sortable"></p-sortIcon>
+          <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
@@ -50,6 +50,9 @@
         </td>
         <td *ngFor="let col of visibleColumns">
           {{ rowData[col.field] || 'N/A' }}
+        </td>
+        <td>
+          <button pButton type="button" icon="pi pi-eye" label="View" (click)="viewCandidate(rowData)"></button>
         </td>
       </tr>
     </ng-template>

@@ -195,5 +195,10 @@ export class CandidateListComponent implements OnInit {
   sendEmail(status: String) {
     console.log(this.selectedCandidates, status);
   }
+
+  viewCandidate(candidate: any) {
+    const candidateId = candidate.id; // Assuming you have a unique candidate ID
+    this.router.navigate(['/candidates', candidateId]);
+  }
 }
 
