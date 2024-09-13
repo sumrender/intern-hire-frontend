@@ -38,7 +38,7 @@
         </th>
         <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.sortable ? col.field : null">
           {{col.header}}
-          <p-sortIcon [field]="col.field"></p-sortIcon>
+          <p-sortIcon [field]="col.field" *ngif="col.sortable"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
