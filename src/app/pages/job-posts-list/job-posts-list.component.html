@@ -12,7 +12,7 @@
           <th>Resume Score</th>
           <th>Created At</th>
           <th>Currently Hiring</th>
-          <th>Actions</th>
+          <!-- <th>Actions</th> -->
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-jobPost>
@@ -25,9 +25,9 @@
           <td>{{ jobPost.resume_score }}</td>
           <td>{{ jobPost.created_at | date: 'short' }}</td>
           <td>{{ jobPost.is_active ? 'Yes' : 'No' }}</td>
-          <td>
+          <!-- <td>
             <button pButton label="Toggle Active" (click)="toggleJobStatus(jobPost)"></button>
-          </td>
+          </td> -->
         </tr>
       </ng-template>
     </p-table>

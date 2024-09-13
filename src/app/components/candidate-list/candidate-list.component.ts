@@ -210,5 +210,10 @@ export class CandidateListComponent implements OnInit {
     }
     this.candidateService.sendEmailsBulk(mailList).subscribe((res)=>{console.log(res)});
   }
+
+  viewCandidate(candidate: any) {
+    const candidateId = candidate.id; // Assuming you have a unique candidate ID
+    this.router.navigate(['/candidates', candidateId]);
+  }
 }
 
