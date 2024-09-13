@@ -11,6 +11,7 @@
       </div>
       <div class="p-col-6 text-right">
         <button pButton type="button" label="Filter" icon="pi pi-cog" (click)="showFilterDialog()"></button>
+        <button pButton type="button" label="Start review" icon="pi pi-cog" (click)="reviewAllCandidates()"></button>
         <button pButton type="button" label="Actions" icon="pi pi-cog" *ngIf="selectedCandidates.length > 0" (click)="showBulkStatusUpdateDialog()"></button>
       </div>
     </div>

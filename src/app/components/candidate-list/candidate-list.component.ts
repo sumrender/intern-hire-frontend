@@ -189,7 +189,15 @@ export class CandidateListComponent implements OnInit {
   }
 
   submitBulkStatus() {
-    console.log(this.selectedCandidates, this.statusForm.get('status')?.value);
+    for(let candidate of this.selectedCandidates) {
+      this.candidateService.updateCandidate(candidate.candidate_id, {
+        current_status: this.statusForm.get('status')?.value
+      }).subscribe((res)=>{console.log(res)});
+    }
+  }
+
+  reviewAllCandidates() {
+    this.candidateService.reviewCandidateBulk(this.jobId).subscribe((res)=>{console.log(res)});
   }
 
   sendEmail(status: String) {
@@ -200,7 +208,7 @@ export class CandidateListComponent implements OnInit {
         status: status
       })
     }
-    this.candidateService.sendEmailsBulk(mailList);
+    this.candidateService.sendEmailsBulk(mailList).subscribe((res)=>{console.log(res)});
   }
 }
 

@@ -47,10 +47,14 @@ export class CandidateService {
           mail_list: mailList
         }
     };
-    return this.apiService.post('/send_email/bulk', params, true).subscribe((res)=>{console.log(res)});
+    return this.apiService.post('/send_email/bulk', params, true);
   }
 
   updateCandidate(candidate_id: string, updatedFields: { [key: string]: any }): Observable<any> {
     return this.apiService.put(`/candidates/${candidate_id}`, updatedFields);
+  }
+
+  reviewCandidateBulk(job_id: string) {
+    return this.apiService.post(`/candidate-review/bulk/${job_id}`, {}, true);
   }
 }
