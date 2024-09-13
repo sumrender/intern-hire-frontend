@@ -93,7 +93,6 @@ export class CandidateListComponent implements OnInit {
           const latestSubmission: Submission = candidate.submission?.length > 0
             ? candidate.submission[candidate.submission.length - 1]
             : {} as Submission;  // Cast empty object as Submission
-          console.log("latest ubsste", latestSubmission);
           return {
             ...candidate, // Spread the candidate object
             submission_status: latestSubmission.status || 'N/A',
@@ -194,6 +193,12 @@ export class CandidateListComponent implements OnInit {
         current_status: this.statusForm.get('status')?.value
       }).subscribe((res)=>{console.log(res)});
     }
+    if (this.statusForm.get('status')?.value === 'rejected') {
+      this.sendEmail('REJECTION');
+    } else if (this.statusForm.get('status')?.value === 'offer_letter_sent') {
+      this.sendEmail('ACCEPTANCE');
+    }
+    this.bulkStatusUpdateDialogVisible = false;
   }
 
   reviewAllCandidates() {
@@ -209,6 +214,7 @@ export class CandidateListComponent implements OnInit {
       })
     }
     this.candidateService.sendEmailsBulk(mailList).subscribe((res)=>{console.log(res)});
+    alert("email(s) sent successfully");
   }
 
   viewCandidate(candidate: any) {

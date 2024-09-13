@@ -116,14 +116,8 @@
           </div>
         </div>
       </form>
-      <div class="p-grid">
-        <div class="p-col-6">
-          <button pButton label="Send rejection email" (click)="sendEmail('REJECTION')"></button>
-        </div>
-        <div class="p-col-6">
-          <button pButton label="Send selection email" (click)="sendEmail('ACCEPTANCE')"></button>
-        </div>
-      </div>
+      <p *ngIf="statusForm.get('status')?.value === 'rejected'">Note: Selecting `rejection` state will send rejection emails to the candidates!</p>
+      <p *ngIf="statusForm.get('status')?.value === 'offer_letter_sent'">Note: Selecting `offer_letter_sent` state will send acceptance emails to the candidates!</p>
     </p-dialog>
   </div>
   
