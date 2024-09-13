@@ -195,7 +195,14 @@ export class CandidateListComponent implements OnInit {
   }
 
   sendEmail(status: String) {
-    console.log(this.selectedCandidates, status);
+    const mailList = []
+    for(let candidate of this.selectedCandidates) {
+      mailList.push({
+        recipient_email: candidate.email,
+        status: status
+      })
+    }
+    this.candidateService.sendEmailsBulk(mailList);
   }
 }
 

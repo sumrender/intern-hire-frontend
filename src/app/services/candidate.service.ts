@@ -39,4 +39,13 @@ export class CandidateService {
   getCandidatesByJobId(jobId: string): Observable<any> {
     return this.apiService.get(`/candidates?job_id=${jobId}`);
   }
+
+  sendEmailsBulk(mailList: any[]) {
+    const params = {
+        data: {
+          mail_list: mailList
+        }
+    };
+    return this.apiService.post('/send_email/bulk', params, true).subscribe((res)=>{console.log(res)});
+  }
 }

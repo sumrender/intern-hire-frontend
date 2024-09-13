@@ -8,6 +8,7 @@ import { environment } from '../../environment';
 })
 export class ApiService {
   private baseUrl: string = environment.apiUrl; // Use the base URL from the environment file
+  private basePythonUrl: string = environment.pyApiUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -30,8 +31,11 @@ export class ApiService {
   }
 
   // Generic POST request
-  post<T>(endpoint: string, body: any): Observable<T> {
-    const url = `${this.baseUrl}${endpoint}`;
+  post<T>(endpoint: string, body: any, usePy: boolean = false): Observable<T> {
+    let url =  `${this.baseUrl}${endpoint}`;
+    if (usePy){
+      url = `${this.basePythonUrl}${endpoint}`
+    }
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<T>(url, body, { headers });
   }

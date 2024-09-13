@@ -105,16 +105,16 @@
             </p-dropdown>
           </div>
           <div class="p-col-6">
-            <button pButton label="Update" icon="pi pi-check" type="submit"></button>
+            <button pButton label="Update" icon="pi pi-cog" type="submit"></button>
           </div>
         </div>
       </form>
       <div class="p-grid">
         <div class="p-col-6">
-          <button pButton label="Send rejection email" icon="pi pi-check" (click)="sendEmail('reject')"></button>
+          <button pButton label="Send rejection email" (click)="sendEmail('REJECTION')"></button>
         </div>
         <div class="p-col-6">
-          <button pButton label="Send selection email" icon="pi pi-check" (click)="sendEmail('select')"></button>
+          <button pButton label="Send selection email" (click)="sendEmail('ACCEPTANCE')"></button>
         </div>
       </div>
     </p-dialog>
