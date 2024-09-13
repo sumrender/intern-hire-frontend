@@ -32,6 +32,7 @@ export class CreateJobComponent {
   job_domains: string[] = ['Frontend', 'Backend', 'Integrations', 'Marketing', 'Sales', 'Customer Success'];
   isLoading: boolean = false;
   isSuccess: boolean = false;
+  showCodeCoverageAndReview: boolean = false; // To control whether to show code coverage and review
 
   constructor(
     private fb: FormBuilder,
@@ -49,6 +50,11 @@ export class CreateJobComponent {
       github_url: ['', Validators.required],
       is_active: [true],
     });
+  }
+
+  onDomainChange(event: any) {
+    const selectedDomain = event.value;
+    this.showCodeCoverageAndReview = selectedDomain === 'Frontend' || selectedDomain === 'Backend' || selectedDomain === 'Integrations';
   }
 
   onSubmit() {

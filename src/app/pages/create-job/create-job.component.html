@@ -6,14 +6,12 @@
       <i class="pi pi-spin pi-spinner" style="font-size: 2em;"></i>
     </div>
     
-    <!-- Show success icon when job post is created -->
     <div *ngIf="isSuccess" class="success-message">
       <i class="pi pi-check-circle" style="font-size: 2em; color: green;"></i>
       <p>Job post created successfully!</p>
       <p> Redirecting to job posts page ...</p>
     </div>
 
-    <!-- Job form will be hidden when loading or success -->
     <div class="create-job-form" *ngIf="!isLoading && !isSuccess">
       <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
 
@@ -43,7 +41,7 @@
         <div class="field">
           <div><label for="job_domain">Job Domain*</label></div>
           <p-dropdown id="job_domain" [options]="job_domains" formControlName="job_domain"
-            placeholder="Select a domain" [style]="{'width':'100%', 'margin': '10px 0'}"></p-dropdown>
+            placeholder="Select a domain" (onChange)="onDomainChange($event)" [style]="{'width':'100%', 'margin': '10px 0'}"></p-dropdown>
           <div *ngIf="jobForm.get('job_domain')?.invalid && jobForm.get('job_domain')?.touched">
             <small class="p-error">Job domain is required</small>
           </div>
@@ -59,26 +57,30 @@
 
         <h2>Set Standards</h2>
 
-        <div class="field">
-          <div><label for="code_coverage">Code coverage percentage (out of 100)</label></div>
-          <input id="code_coverage" pInputText formControlName="code_coverage" placeholder="Enter code coverage percentage"/>
-          <div *ngIf="jobForm.get('code_coverage')?.invalid && jobForm.get('code_coverage')?.touched">
-            <small class="p-error">Enter only numbers</small>
+        <!-- Show Code Coverage and Code Review Score for Frontend and Backend -->
+        <div *ngIf="showCodeCoverageAndReview">
+          <div class="field">
+            <div><label for="code_coverage">Code coverage percentage (out of 100)</label></div>
+            <input id="code_coverage" pInputText formControlName="code_coverage" placeholder="Enter code coverage percentage"/>
+            <div *ngIf="jobForm.get('code_coverage')?.invalid && jobForm.get('code_coverage')?.touched">
+              <small class="p-error">Enter only numbers</small>
+            </div>
+          </div>
+
+          <div class="field">
+            <div><label for="code_review_score">Code review score threshold (out of 10)</label></div>
+            <input id="code_review_score" pInputText formControlName="code_review_score" placeholder="Enter code review score threshold"/>
+            <div *ngIf="jobForm.get('code_review_score')?.invalid && jobForm.get('code_review_score')?.touched">
+              <small class="p-error">Enter only numbers</small>
+            </div>
           </div>
         </div>
 
+        <!-- Resume Review Score for all domains -->
         <div class="field">
           <div><label for="resume_score">Resume score threshold (out of 10)</label></div>
           <input id="resume_score" pInputText formControlName="resume_score" placeholder="Enter resume score threshold"/>
           <div *ngIf="jobForm.get('resume_score')?.invalid && jobForm.get('resume_score')?.touched">
-            <small class="p-error">Enter only numbers</small>
-          </div>
-        </div>
-
-        <div class="field">
-          <div><label for="code_review_score">Code review score threshold (out of 10)</label></div>
-          <input id="code_review_score" pInputText formControlName="code_review_score" placeholder="Enter code review score threshold"/>
-          <div *ngIf="jobForm.get('code_review_score')?.invalid && jobForm.get('code_review_score')?.touched">
             <small class="p-error">Enter only numbers</small>
           </div>
         </div>

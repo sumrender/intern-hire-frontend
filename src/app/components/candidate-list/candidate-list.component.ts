@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, input } from '@angular/core';
 import { CandidateService } from '../../services/candidate.service';
 import { Candidate } from '../../models/candidate.model';  // Import the interfaces
 import { Submission } from '../../models/submission.model';
@@ -11,6 +11,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';  
 import { Router } from '@angular/router';
+import { JobPost } from '../../models/job-post.model';
 
 @Component({
   selector: 'app-candidate-list',
@@ -23,6 +24,7 @@ export class CandidateListComponent implements OnInit {
 
   @Input() jobId!: string; 
   @Input() status: string = '';
+  @Input() jobData!: JobPost;
 
   candidates: Candidate[] = [];  // Explicitly use the Candidate type
   totalRecords: number = 0;
@@ -47,7 +49,7 @@ export class CandidateListComponent implements OnInit {
     { field: 'current_status', header: 'Status', visible: true, sortable: false },
     { field: 'current_job_id', header: 'Current Job ID', visible: false, sortable: false },
     { field: 'current_hiring_eligibility', header: 'Hiring Eligibility', visible: true, sortable: false },  // Not sortable
-    { field: 'reapplied_time_gap', header: 'Reapplied Time Gap', visible: true, sortable: false },  // Not sortable
+    { field: 'reapplied_time_gap', header: 'Reapplied Time Gap', visible: false, sortable: false },  // Not sortable
     
     // Fields from the latest submission
     { field: 'submission_status', header: 'Submission Status', visible: false, sortable: true },
@@ -93,6 +95,17 @@ export class CandidateListComponent implements OnInit {
           const latestSubmission: Submission = candidate.submission?.length > 0
             ? candidate.submission[candidate.submission.length - 1]
             : {} as Submission;  // Cast empty object as Submission
+
+            let fitEvaluation = null;
+            
+            if (this.jobData) {
+              const job = this.jobData;
+              const isBestFit = latestSubmission.resume_review?.resume_review_overall_score >= job.resume_score &&
+                                latestSubmission.code_review?.overall_score >= job.code_review_score &&
+                                latestSubmission.code_coverage_score >= job.code_coverage;
+    
+              fitEvaluation = isBestFit ? 'Best Fit' : 'Not a Good Fit';
+            }
           return {
             ...candidate, // Spread the candidate object
             submission_status: latestSubmission.status || 'N/A',
@@ -102,7 +115,8 @@ export class CandidateListComponent implements OnInit {
             resume_review_overall_score: latestSubmission.resume_review?.resume_review_overall_score || 'N/A',
             code_review_overall_score: latestSubmission.code_review?.overall_score || 'N/A',
             code_coverage_score: latestSubmission.code_coverage_score || 'N/A',
-            last_updated: latestSubmission.last_updated || 'N/A'
+            last_updated: latestSubmission.last_updated || 'N/A',
+            fitEvaluation
           };
         }) || [];
 
