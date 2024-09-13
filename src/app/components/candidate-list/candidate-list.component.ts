@@ -203,6 +203,7 @@ export class CandidateListComponent implements OnInit {
 
   reviewAllCandidates() {
     this.candidateService.reviewCandidateBulk(this.jobId).subscribe((res)=>{console.log(res)});
+    alert("AI review has started! 🤖")
   }
 
   sendEmail(status: String) {
