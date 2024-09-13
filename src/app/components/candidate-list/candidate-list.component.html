@@ -37,8 +37,8 @@
         <th>
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th>View Profile</th>
         <th *ngIf="jobData">Fit Evaluation</th>
+        <th>View Profile</th>
         <th *ngFor="let col of visibleColumns" [pSortableColumn]="col.sortable ? col.field : null">
           {{col.header}}
           <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>

@@ -24,28 +24,43 @@
 
   <!-- Resume Review Section -->
   <p-card header="Resume Review" class="profile-card">
+      @if(resumeReviewChartData){
     <p-chart type="radar" [data]="resumeReviewChartData" [options]="chartOptions"></p-chart>
     <div class="summary">
       <h4><i class="pi pi-file"></i> Summary</h4>
       <p>{{ candidate.submission[0]?.resume_review?.resume_review_overall_summary || 'No summary available' }}</p>
     </div>
+  }
+    @else {
+      <p>AI Review is not done yet</p>
+    }
   </p-card>
 
   <!-- Code Review Section -->
   <p-card header="Code Review" class="profile-card">
-    <p-chart type="bar" [data]="codeReviewChartData" [options]="chartOptions"></p-chart>
-    <div class="summary">
-      <h4><i class="pi pi-file"></i> Summary</h4>
-      <p>{{ candidate.submission[0]?.code_review?.summary || 'No summary available' }}</p>
-    </div>
+    @if(codeReviewChartData){
+      <p-chart type="bar" [data]="codeReviewChartData" [options]="chartOptions"></p-chart>
+      <div class="summary">
+        <h4><i class="pi pi-file"></i> Summary</h4>
+        <p>{{ candidate.submission[0]?.code_review?.summary || 'No summary available' }}</p>
+      </div>
+
+    }
+    @else {
+      <p>AI Review is not done yet</p>
+    }
   </p-card>
 
   <!-- Code Coverage Section -->
   <p-card header="Code Coverage" class="profile-card">
-    <p-chart type="doughnut" [data]="codeCoverageChartData" [options]="chartOptions"></p-chart>
-    <div class="summary">
-      <h4><i class="pi pi-file"></i> Code Coverage Description</h4>
-      <p>{{ candidate.submission[0]?.code_coverage_description || 'No description available' }}</p>
-    </div>
+    @if(codeCoverageChartData){
+      <p-chart type="doughnut" [data]="codeCoverageChartData" [options]="chartOptions"></p-chart>
+      <div class="summary">
+        <h4><i class="pi pi-file"></i> Code Coverage Description</h4>
+        <p>{{ candidate.submission[0]?.code_coverage_description || 'No description available' }}</p>
+      </div>
+    }
+    @else {
+      <p>AI Review is not done yet</p>
+    }
   </p-card>
-</div>
